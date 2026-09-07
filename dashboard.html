@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>WanderGo - Dashboard</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="page">
+
+
+    <!-- =====================================
+         Header
+         ===================================== -->
+
+    <header class="header">
+
+        <div class="container header-inner">
+
+            <a
+                href="dashboard.html"
+                class="logo"
+            >
+
+                <span class="logo-icon">
+                    ✈️
+                </span>
+
+                <span>
+                    WanderGo
+                </span>
+
+            </a>
+
+
+            <nav class="nav">
+
+                <a
+                    href="dashboard.html"
+                    class="active"
+                >
+                    Dashboard
+                </a>
+
+                <a href="trip-planner.html">
+                    วางแผนทริป
+                </a>
+
+                <a href="budget.html">
+                    งบประมาณ
+                </a>
+
+                <a href="history.html">
+                    ประวัติ
+                </a>
+
+                <a href="profile.html">
+                    โปรไฟล์
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================
+         Main
+         ===================================== -->
+
+    <main class="main">
+
+        <div class="container">
+
+
+            <!-- Welcome -->
+
+            <section class="welcome-card card">
+
+                <h1 id="welcomeTitle">
+                    ยินดีต้อนรับสู่ WanderGo 👋
+                </h1>
+
+                <p>
+                    วางแผนการเดินทาง
+                    จัดการงบประมาณ
+                    และเก็บความทรงจำของคุณ
+                    ไว้ในที่เดียว
+                </p>
+
+            </section>
+
+
+            <!-- =================================
+                 Statistics
+                 ================================= -->
+
+            <section class="stats-grid">
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        🧳
+                    </div>
+
+                    <div class="stat-label">
+                        จำนวนทริปทั้งหมด
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="tripCount"
+                    >
+                        0
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        💰
+                    </div>
+
+                    <div class="stat-label">
+                        งบประมาณรวม
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="totalBudget"
+                    >
+                        0 ฿
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        ❤️
+                    </div>
+
+                    <div class="stat-label">
+                        สถานที่โปรด
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="favoriteCount"
+                    >
+                        0
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================
+                 Quick Actions
+                 ================================= -->
+
+            <section class="card">
+
+                <h2 class="card-title">
+                    เริ่มต้นการเดินทาง
+                </h2>
+
+
+                <div class="grid-2">
+
+
+                    <a
+                        href="trip-planner.html"
+                        class="card"
+                        style="background:#eaf7ff;"
+                    >
+
+                        <div class="stat-icon">
+                            🗺️
+                        </div>
+
+                        <h3>
+                            สร้างทริปใหม่
+                        </h3>
+
+                        <p>
+                            วางแผนสถานที่
+                            วันที่เดินทาง
+                            และค่าใช้จ่าย
+                        </p>
+
+                    </a>
+
+
+                    <a
+                        href="history.html"
+                        class="card"
+                    >
+
+                        <div class="stat-icon">
+                            📚
+                        </div>
+
+                        <h3>
+                            ดูประวัติการเดินทาง
+                        </h3>
+
+                        <p>
+                            ดูทริปที่คุณเคยสร้าง
+                            และจัดการข้อมูล
+                        </p>
+
+                    </a>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================
+                 Recent Trips
+                 ================================= -->
+
+            <section
+                class="card"
+                style="margin-top:22px;"
+            >
+
+                <h2 class="card-title">
+                    ทริปล่าสุด
+                </h2>
+
+
+                <div
+                    id="recentTrips"
+                    class="trip-list"
+                ></div>
+
+            </section>
+
+
+        </div>
+
+    </main>
+
+
+    <!-- =====================================
+         Footer
+         ===================================== -->
+
+    <footer class="footer">
+
+        WanderGo © 2026
+        <br>
+        วางแผนง่าย เที่ยวสนุก
+
+    </footer>
+
+
+</div>
+
+
+<!-- =====================================
+     JavaScript
+     ===================================== -->
+
+<script src="js/script.js"></script>
+
+
+<script>
+
+    /* =====================================
+       Login Check
+       ===================================== */
+
+    if (!requireLogin()) {
+
+        throw new Error(
+            "User is not logged in"
+        );
+
+    }
+
+
+    /* =====================================
+       User
+       ===================================== */
+
+    const user =
+        getCurrentUser();
+
+
+    if (user) {
+
+        document
+            .getElementById(
+                "welcomeTitle"
+            )
+            .textContent =
+                "ยินดีต้อนรับ "
+                +
+                user.name
+                +
+                " 👋";
+
+    }
+
+
+    /* =====================================
+       Statistics
+       ===================================== */
+
+    const trips =
+        getTrips();
+
+
+    const favorites =
+        getFavorites();
+
+
+    document
+        .getElementById(
+            "tripCount"
+        )
+        .textContent =
+            trips.length;
+
+
+    document
+        .getElementById(
+            "favoriteCount"
+        )
+        .textContent =
+            favorites.length;
+
+
+    let totalBudget = 0;
+
+
+    trips.forEach(
+        function(trip) {
+
+            totalBudget +=
+                calculateTripCost(
+                    trip
+                );
+
+        }
+    );
+
+
+    document
+        .getElementById(
+            "totalBudget"
+        )
+        .textContent =
+            formatMoney(
+                totalBudget
+            );
+
+
+    /* =====================================
+       Recent Trips
+       ===================================== */
+
+    const recentContainer =
+        document.getElementById(
+            "recentTrips"
+        );
+
+
+    if (trips.length === 0) {
+
+        recentContainer.innerHTML = `
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    🗺️
+                </div>
+
+                <h3>
+                    ยังไม่มีทริป
+                </h3>
+
+                <p>
+                    เริ่มสร้างทริปแรกของคุณ
+                    ได้เลย
+                </p>
+
+                <br>
+
+                <a
+                    href="trip-planner.html"
+                    class="btn btn-primary"
+                >
+                    + สร้างทริปใหม่
+                </a>
+
+            </div>
+
+        `;
+
+    } else {
+
+
+        const recentTrips =
+            trips
+                .slice()
+                .reverse()
+                .slice(0, 3);
+
+
+        recentContainer.innerHTML =
+            recentTrips
+                .map(
+                    function(trip) {
+
+                        return `
+
+                            <div
+                                class="trip-card"
+                            >
+
+                                <div>
+
+                                    <div
+                                        class="trip-image"
+                                        style="
+                                            background:#eaf7ff;
+                                            display:flex;
+                                            align-items:center;
+                                            justify-content:center;
+                                            font-size:50px;
+                                        "
+                                    >
+                                        🗺️
+                                    </div>
+
+                                </div>
+
+
+                                <div
+                                    class="trip-content"
+                                >
+
+                                    <h3>
+                                        ${escapeHTML(
+                                            trip.tripName
+                                        )}
+                                    </h3>
+
+                                    <p>
+                                        📍
+                                        ${escapeHTML(
+                                            trip.destination
+                                        )}
+                                    </p>
+
+
+                                    <div
+                                        class="trip-meta"
+                                    >
+
+                                        <span
+                                            class="place-tag"
+                                        >
+                                            📅
+                                            ${formatDate(
+                                                trip.startDate
+                                            )}
+                                        </span>
+
+                                        <span
+                                            class="place-tag"
+                                        >
+                                            💰
+                                            ${formatMoney(
+                                                calculateTripCost(
+                                                    trip
+                                                )
+                                            )}
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="trip-actions"
+                                    >
+
+                                        <a
+                                            href="budget.html?id=${encodeURIComponent(
+                                                trip.id
+                                            )}"
+                                            class="btn btn-secondary"
+                                        >
+                                            ดูงบประมาณ
+                                        </a>
+
+                                        <a
+                                            href="history.html"
+                                            class="btn btn-primary"
+                                        >
+                                            ดูรายละเอียด
+                                        </a>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        `;
+
+                    }
+                )
+                .join("");
+
+    }
+
+</script>
+
+</body>
+
+</html>
