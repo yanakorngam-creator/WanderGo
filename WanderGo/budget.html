@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>WanderGo - งบประมาณ</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="page">
+
+
+    <!-- =====================================
+         Header
+         ===================================== -->
+
+    <header class="header">
+
+        <div class="container header-inner">
+
+            <a
+                href="dashboard.html"
+                class="logo"
+            >
+
+                <span class="logo-icon">
+                    ✈️
+                </span>
+
+                <span>
+                    WanderGo
+                </span>
+
+            </a>
+
+
+            <nav class="nav">
+
+                <a href="dashboard.html">
+                    Dashboard
+                </a>
+
+                <a href="trip-planner.html">
+                    วางแผนทริป
+                </a>
+
+                <a
+                    href="budget.html"
+                    class="active"
+                >
+                    งบประมาณ
+                </a>
+
+                <a href="history.html">
+                    ประวัติ
+                </a>
+
+                <a href="profile.html">
+                    โปรไฟล์
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================
+         Main
+         ===================================== -->
+
+    <main class="main">
+
+        <div class="container">
+
+
+            <div class="page-title">
+
+                <h1>
+                    💰 งบประมาณการเดินทาง
+                </h1>
+
+                <p>
+                    ตรวจสอบค่าใช้จ่ายของทริปที่คุณบันทึกไว้
+                </p>
+
+            </div>
+
+
+            <!-- =================================
+                 Budget Content
+                 ================================= -->
+
+            <section id="budgetContent"></section>
+
+
+        </div>
+
+    </main>
+
+
+    <!-- =====================================
+         Footer
+         ===================================== -->
+
+    <footer class="footer">
+
+        WanderGo © 2026
+
+    </footer>
+
+
+</div>
+
+
+<!-- =====================================
+     JavaScript
+     ===================================== -->
+
+<script src="js/script.js"></script>
+
+
+<script>
+
+    /* =====================================
+       Login Check
+       ===================================== */
+
+    if (!requireLogin()) {
+
+        throw new Error(
+            "User is not logged in"
+        );
+
+    }
+
+
+    /* =====================================
+       Get Trip ID
+       ===================================== */
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    const tripId =
+        params.get("id");
+
+
+    /* =====================================
+       Calculate Budget
+       ===================================== */
+
+    function renderBudget() {
+
+        const container =
+            document.getElementById(
+                "budgetContent"
+            );
+
+
+        /* ---------------------------------
+           No Trip ID
+           --------------------------------- */
+
+        if (!tripId) {
+
+            container.innerHTML = `
+
+                <div class="card">
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            💰
+                        </div>
+
+                        <h3>
+                            กรุณาเลือกทริป
+                        </h3>
+
+                        <p>
+                            เลือกทริปจากหน้าประวัติ
+                            เพื่อดูงบประมาณ
+                        </p>
+
+                        <br>
+
+                        <a
+                            href="history.html"
+                            class="btn btn-primary"
+                        >
+                            📚 ไปหน้าประวัติ
+                        </a>
+
+                    </div>
+
+                </div>
+
+            `;
+
+            return;
+        }
+
+
+        /* ---------------------------------
+           Get Trip
+           --------------------------------- */
+
+        const trip =
+            getTripById(
+                tripId
+            );
+
+
+        if (!trip) {
+
+            container.innerHTML = `
+
+                <div class="card">
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            ❌
+                        </div>
+
+                        <h3>
+                            ไม่พบทริปนี้
+                        </h3>
+
+                        <p>
+                            อาจถูกลบออกจากระบบแล้ว
+                        </p>
+
+                        <br>
+
+                        <a
+                            href="history.html"
+                            class="btn btn-primary"
+                        >
+                            📚 กลับหน้าประวัติ
+                        </a>
+
+                    </div>
+
+                </div>
+
+            `;
+
+            return;
+        }
+
+
+        /* ---------------------------------
+           Calculate
+           --------------------------------- */
+
+        const total =
+            calculateTripCost(
+                trip
+            );
+
+
+        const places =
+            trip.places || [];
+
+
+        /* ---------------------------------
+           Render
+           --------------------------------- */
+
+        container.innerHTML = `
+
+            <!-- Trip Summary -->
+
+            <div class="card">
+
+                <h2>
+                    🗺️ ${escapeHTML(
+                        trip.tripName
+                    )}
+                </h2>
+
+                <p>
+                    📍 ${escapeHTML(
+                        trip.destination
+                    )}
+
+                    ${
+                        trip.province
+                            ? " · " +
+                              escapeHTML(
+                                  trip.province
+                              )
+                            : ""
+                    }
+                </p>
+
+
+                <div class="trip-meta">
+
+                    <span class="place-tag">
+
+                        📅
+                        ${formatDate(
+                            trip.startDate
+                        )}
+
+                    </span>
+
+
+                    <span class="place-tag">
+
+                        ถึง
+                        ${formatDate(
+                            trip.endDate
+                        )}
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- Total Budget -->
+
+            <div
+                class="card"
+                style="margin-top:20px;"
+            >
+
+                <div class="empty-state">
+
+                    <div class="empty-icon">
+                        💰
+                    </div>
+
+                    <h2>
+                        งบประมาณทั้งหมด
+                    </h2>
+
+                    <div
+                        style="
+                            font-size:36px;
+                            font-weight:bold;
+                            margin:15px 0;
+                        "
+                    >
+
+                        ${formatMoney(
+                            total
+                        )}
+
+                    </div>
+
+                    <p>
+                        งบประมาณที่กำหนดไว้สำหรับทริปนี้
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Places -->
+
+            <div
+                class="card"
+                style="margin-top:20px;"
+            >
+
+                <h2>
+                    📍 สถานที่ในทริป
+                </h2>
+
+
+                ${
+                    places.length > 0
+
+                        ? `
+
+                            <div
+                                class="trip-meta"
+                                style="margin-top:15px;"
+                            >
+
+                                ${places
+                                    .map(
+                                        function(place) {
+
+                                            return `
+
+                                                <span
+                                                    class="place-tag"
+                                                >
+
+                                                    📍
+                                                    ${escapeHTML(
+                                                        place.name
+                                                    )}
+
+                                                </span>
+
+                                            `;
+
+                                        }
+                                    )
+                                    .join("")}
+
+                            </div>
+
+                        `
+
+                        : `
+
+                            <p
+                                style="
+                                    margin-top:15px;
+                                    color:#718592;
+                                "
+                            >
+                                ยังไม่ได้เพิ่มสถานที่
+                            </p>
+
+                        `
+                }
+
+            </div>
+
+
+            <!-- Details -->
+
+            ${
+                trip.details
+
+                    ? `
+
+                        <div
+                            class="card"
+                            style="margin-top:20px;"
+                        >
+
+                            <h2>
+                                📝 รายละเอียดทริป
+                            </h2>
+
+                            <p
+                                style="
+                                    margin-top:15px;
+                                    line-height:1.8;
+                                "
+                            >
+                                ${escapeHTML(
+                                    trip.details
+                                )}
+                            </p>
+
+                        </div>
+
+                    `
+
+                    : ""
+            }
+
+
+            <!-- Actions -->
+
+            <div
+                style="
+                    margin-top:20px;
+                    display:flex;
+                    gap:10px;
+                    flex-wrap:wrap;
+                "
+            >
+
+                <a
+                    href="history.html"
+                    class="btn btn-secondary"
+                >
+                    📚 กลับหน้าประวัติ
+                </a>
+
+
+                <a
+                    href="trip-planner.html"
+                    class="btn btn-primary"
+                >
+                    ✈️ สร้างทริปใหม่
+                </a>
+
+            </div>
+
+        `;
+
+    }
+
+
+    /* =====================================
+       Start
+       ===================================== */
+
+    renderBudget();
+
+</script>
+
+</body>
+
+</html>

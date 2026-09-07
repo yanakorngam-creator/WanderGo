@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>WanderGo - โปรไฟล์</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="page">
+
+
+    <!-- =====================================
+         Header
+         ===================================== -->
+
+    <header class="header">
+
+        <div class="container header-inner">
+
+            <a
+                href="dashboard.html"
+                class="logo"
+            >
+
+                <span class="logo-icon">
+                    ✈️
+                </span>
+
+                <span>
+                    WanderGo
+                </span>
+
+            </a>
+
+
+            <nav class="nav">
+
+                <a href="dashboard.html">
+                    Dashboard
+                </a>
+
+                <a href="trip-planner.html">
+                    วางแผนทริป
+                </a>
+
+                <a href="budget.html">
+                    งบประมาณ
+                </a>
+
+                <a href="history.html">
+                    ประวัติ
+                </a>
+
+                <a
+                    href="profile.html"
+                    class="active"
+                >
+                    โปรไฟล์
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================
+         Main
+         ===================================== -->
+
+    <main class="main">
+
+        <div class="container">
+
+
+            <div class="page-title">
+
+                <h1>
+                    👤 โปรไฟล์ของฉัน
+                </h1>
+
+                <p>
+                    ข้อมูลผู้ใช้งาน WanderGo
+                </p>
+
+            </div>
+
+
+            <!-- =================================
+                 Profile Card
+                 ================================= -->
+
+            <section
+                class="card"
+                style="
+                    max-width:700px;
+                    margin:0 auto;
+                "
+            >
+
+                <div
+                    style="
+                        text-align:center;
+                        margin-bottom:25px;
+                    "
+                >
+
+                    <div
+                        style="
+                            width:100px;
+                            height:100px;
+                            border-radius:50%;
+                            background:#eaf7ff;
+                            display:flex;
+                            align-items:center;
+                            justify-content:center;
+                            font-size:50px;
+                            margin:0 auto 15px;
+                        "
+                    >
+                        👤
+                    </div>
+
+
+                    <h2>
+                        ข้อมูลส่วนตัว
+                    </h2>
+
+                </div>
+
+
+                <!-- Name -->
+
+                <div
+                    style="
+                        margin-bottom:20px;
+                    "
+                >
+
+                    <label
+                        style="
+                            display:block;
+                            font-weight:bold;
+                            margin-bottom:8px;
+                        "
+                    >
+                        👤 ชื่อผู้ใช้งาน
+                    </label>
+
+
+                    <div
+                        id="userName"
+                        style="
+                            padding:14px;
+                            background:#f7fafc;
+                            border-radius:10px;
+                        "
+                    >
+                        -
+                    </div>
+
+                </div>
+
+
+                <!-- Email -->
+
+                <div
+                    style="
+                        margin-bottom:20px;
+                    "
+                >
+
+                    <label
+                        style="
+                            display:block;
+                            font-weight:bold;
+                            margin-bottom:8px;
+                        "
+                    >
+                        📧 อีเมล
+                    </label>
+
+
+                    <div
+                        id="userEmail"
+                        style="
+                            padding:14px;
+                            background:#f7fafc;
+                            border-radius:10px;
+                        "
+                    >
+                        -
+                    </div>
+
+                </div>
+
+
+                <!-- Account -->
+
+                <div
+                    style="
+                        margin-bottom:25px;
+                    "
+                >
+
+                    <label
+                        style="
+                            display:block;
+                            font-weight:bold;
+                            margin-bottom:8px;
+                        "
+                    >
+                        ✈️ บริการ
+                    </label>
+
+
+                    <div
+                        style="
+                            padding:14px;
+                            background:#f7fafc;
+                            border-radius:10px;
+                        "
+                    >
+                        WanderGo
+                    </div>
+
+                </div>
+
+
+                <!-- Logout -->
+
+                <div
+                    style="
+                        text-align:center;
+                    "
+                >
+
+                    <button
+                        type="button"
+                        id="logoutButton"
+                        class="btn btn-danger"
+                    >
+                        🚪 ออกจากระบบ
+                    </button>
+
+                </div>
+
+            </section>
+
+
+        </div>
+
+    </main>
+
+
+    <!-- =====================================
+         Footer
+         ===================================== -->
+
+    <footer class="footer">
+
+        WanderGo © 2026
+
+    </footer>
+
+
+</div>
+
+
+<!-- =====================================
+     JavaScript
+     ===================================== -->
+
+<script src="js/script.js"></script>
+
+
+<script>
+
+    /* =====================================
+       Login Check
+       ===================================== */
+
+    if (!requireLogin()) {
+
+        throw new Error(
+            "User is not logged in"
+        );
+
+    }
+
+
+    /* =====================================
+       Get Current User
+       ===================================== */
+
+    function renderProfile() {
+
+        const user =
+            getCurrentUser();
+
+
+        if (!user) {
+
+            return;
+
+        }
+
+
+        document.getElementById(
+            "userName"
+        ).textContent =
+            user.name || "-";
+
+
+        document.getElementById(
+            "userEmail"
+        ).textContent =
+            user.email || "-";
+
+    }
+
+
+    /* =====================================
+       Logout
+       ===================================== */
+
+    document.getElementById(
+        "logoutButton"
+    ).addEventListener(
+        "click",
+        function() {
+
+            const confirmed =
+                confirm(
+                    "ต้องการออกจากระบบหรือไม่?"
+                );
+
+
+            if (!confirmed) {
+
+                return;
+
+            }
+
+
+            logout();
+
+
+            window.location.href =
+                "index.html";
+
+        }
+    );
+
+
+    /* =====================================
+       Start
+       ===================================== */
+
+    renderProfile();
+
+</script>
+
+</body>
+
+</html>
