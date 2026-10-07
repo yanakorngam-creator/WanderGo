@@ -1,45 +1,80 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>WanderGo - ประวัติการเดินทาง</title>
 
-    <link rel="stylesheet" href="css/style.css">
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
 </head>
+
 
 <body>
 
 <div class="page">
 
-    <!-- Header -->
+
+    <!-- =====================================
+         Header
+         ===================================== -->
+
     <header class="header">
+
         <div class="container header-inner">
 
-            <a href="dashboard.html" class="logo">
-                <span class="logo-icon">✈️</span>
-                <span>WanderGo</span>
+            <a
+                href="dashboard.html"
+                class="logo"
+            >
+
+                <span class="logo-icon">
+                    ✈️
+                </span>
+
+                <span>
+                    WanderGo
+                </span>
+
             </a>
 
+
             <!-- Navigation -->
+
             <nav class="nav">
 
                 <a href="dashboard.html">
                     Dashboard
                 </a>
 
+
                 <a href="trip-planner.html">
                     วางแผนทริป
                 </a>
+
 
                 <a href="budget.html">
                     งบประมาณ
                 </a>
 
-                <a href="history.html" class="active">
+
+                <a
+                    href="history.html"
+                    class="active"
+                >
                     ประวัติ
                 </a>
+
 
                 <a href="profile.html">
                     โปรไฟล์
@@ -48,17 +83,26 @@
             </nav>
 
         </div>
+
     </header>
 
 
-    <!-- Main -->
+    <!-- =====================================
+         Main
+         ===================================== -->
+
     <main class="main">
 
         <div class="container">
 
+
+            <!-- Page Title -->
+
             <div class="page-title">
 
-                <h1>📚 ประวัติการเดินทาง</h1>
+                <h1>
+                    📚 ประวัติการเดินทาง
+                </h1>
 
                 <p>
                     ทริปทั้งหมดที่คุณบันทึกไว้
@@ -67,52 +111,77 @@
             </div>
 
 
-            <!-- Trip List -->
+            <!-- =================================
+                 Trip List
+                 ================================= -->
+
             <section
                 id="tripList"
                 class="trip-list"
             ></section>
+
 
         </div>
 
     </main>
 
 
-    <!-- Footer -->
+    <!-- =====================================
+         Footer
+         ===================================== -->
+
     <footer class="footer">
+
         WanderGo © 2026
+
     </footer>
+
 
 </div>
 
 
-<!-- Main JavaScript -->
+<!-- =====================================
+     Main JavaScript
+     ===================================== -->
+
 <script src="js/script.js"></script>
 
 
 <script>
 
-    /*
-     * ตรวจสอบว่าผู้ใช้ Login แล้วหรือยัง
-     */
+    /* =====================================
+       Login Check
+       ===================================== */
+
     if (!requireLogin()) {
-        throw new Error("User is not logged in");
+
+        throw new Error(
+            "User is not logged in"
+        );
+
     }
 
 
-    /*
-     * แสดงรายการทริปทั้งหมด
-     */
+    /* =====================================
+       Render Trips
+       ===================================== */
+
     function renderTrips() {
 
-        const trips = getTrips();
+        const trips =
+            getTrips();
 
-        const container = document.getElementById("tripList");
+
+        const container =
+            document.getElementById(
+                "tripList"
+            );
 
 
-        /*
-         * ถ้ายังไม่มีทริป
-         */
+        /* =================================
+           No Trips
+           ================================= */
+
         if (trips.length === 0) {
 
             container.innerHTML = `
@@ -125,21 +194,25 @@
                             🗺️
                         </div>
 
+
                         <h3>
                             ยังไม่มีประวัติการเดินทาง
                         </h3>
+
 
                         <p>
                             เริ่มสร้างทริปแรกของคุณได้เลย
                         </p>
 
+
                         <br>
+
 
                         <a
                             href="trip-planner.html"
                             class="btn btn-primary"
                         >
-                            + สร้างทริปใหม่
+                            ✈️ สร้างทริปใหม่
                         </a>
 
                     </div>
@@ -149,19 +222,31 @@
             `;
 
             return;
+
         }
 
 
-        /*
-         * แสดงทริป
-         * เอาทริปล่าสุดขึ้นก่อน
-         */
+        /* =================================
+           Render Trips
+           ================================= */
+
         container.innerHTML = trips
             .slice()
             .reverse()
             .map(function(trip) {
 
-                const places = trip.places || [];
+
+                /* ---------------------------------
+                   Places
+                   --------------------------------- */
+
+                const places =
+                    trip.places || [];
+
+
+                /* ---------------------------------
+                   First Place
+                   --------------------------------- */
 
                 const firstPlace =
                     places.length > 0
@@ -169,115 +254,165 @@
                         : null;
 
 
+                /* ---------------------------------
+                   Image
+                   --------------------------------- */
+
                 const image =
-                    firstPlace && firstPlace.image
+                    firstPlace &&
+                    firstPlace.image
                         ? firstPlace.image
                         : "";
 
 
-                /*
-                 * รายชื่อสถานที่
-                 */
+                /* ---------------------------------
+                   Places HTML
+                   --------------------------------- */
+
                 const placesHTML =
                     places.length > 0
 
-                        ? places.map(function(place) {
+                        ? places
+                            .map(
+                                function(place) {
 
-                            return `
+                                    return `
 
-                                <span class="place-tag">
-                                    📍 ${escapeHTML(place.name)}
-                                </span>
+                                        <span class="place-tag">
 
-                            `;
+                                            📍
+                                            ${escapeHTML(
+                                                place.name
+                                            )}
 
-                        }).join("")
+                                        </span>
+
+                                    `;
+
+                                }
+                            )
+                            .join("")
 
                         : `
 
                             <span class="place-tag">
+
                                 ยังไม่ได้เพิ่มสถานที่
+
                             </span>
 
                         `;
 
 
-                /*
-                 * HTML ของแต่ละทริป
-                 */
+                /* ---------------------------------
+                   Trip Card
+                   --------------------------------- */
+
                 return `
 
                     <article class="trip-card">
 
 
-                        <!-- รูปภาพ -->
+                        <!-- =================================
+                             Trip Image
+                             ================================= -->
+
                         <div>
 
                             ${
                                 image
 
-                                ? `
+                                    ? `
 
-                                    <img
-                                        src="${escapeHTML(image)}"
-                                        class="trip-image"
-                                        alt="${escapeHTML(trip.tripName)}"
-                                    >
+                                        <img
+                                            src="${escapeHTML(image)}"
+                                            class="trip-image"
+                                            alt="${escapeHTML(
+                                                trip.tripName
+                                            )}"
+                                        >
 
-                                `
+                                    `
 
-                                : `
+                                    : `
 
-                                    <div
-                                        class="trip-image"
-                                        style="
-                                            background:#eaf7ff;
-                                            display:flex;
-                                            align-items:center;
-                                            justify-content:center;
-                                            font-size:55px;
-                                        "
-                                    >
-                                        🗺️
-                                    </div>
+                                        <div
+                                            class="trip-image"
+                                            style="
+                                                background:#eaf7ff;
+                                                display:flex;
+                                                align-items:center;
+                                                justify-content:center;
+                                                font-size:55px;
+                                            "
+                                        >
 
-                                `
+                                            🗺️
+
+                                        </div>
+
+                                    `
                             }
 
                         </div>
 
 
-                        <!-- รายละเอียดทริป -->
+                        <!-- =================================
+                             Trip Content
+                             ================================= -->
+
                         <div class="trip-content">
 
 
+                            <!-- Trip Name -->
+
                             <h3>
-                                ${escapeHTML(trip.tripName)}
+
+                                ${escapeHTML(
+                                    trip.tripName
+                                )}
+
                             </h3>
 
+
+                            <!-- Destination -->
 
                             <p>
 
                                 📍
-                                ${escapeHTML(trip.destination)}
+
+                                ${escapeHTML(
+                                    trip.destination
+                                )}
 
                                 ${
                                     trip.province
+
                                         ? " · " +
-                                          escapeHTML(trip.province)
+                                          escapeHTML(
+                                              trip.province
+                                          )
+
                                         : ""
                                 }
 
                             </p>
 
 
-                            <!-- วันที่ -->
+                            <!-- =================================
+                                 Dates
+                                 ================================= -->
+
                             <div class="trip-meta">
+
 
                                 <span class="place-tag">
 
                                     📅
-                                    ${formatDate(trip.startDate)}
+
+                                    ${formatDate(
+                                        trip.startDate
+                                    )}
 
                                 </span>
 
@@ -285,14 +420,21 @@
                                 <span class="place-tag">
 
                                     ถึง
-                                    ${formatDate(trip.endDate)}
+
+                                    ${formatDate(
+                                        trip.endDate
+                                    )}
 
                                 </span>
+
 
                             </div>
 
 
-                            <!-- สถานที่ -->
+                            <!-- =================================
+                                 Places
+                                 ================================= -->
+
                             <div class="trip-meta">
 
                                 ${placesHTML}
@@ -300,18 +442,27 @@
                             </div>
 
 
-                            <!-- ค่าใช้จ่าย -->
+                            <!-- =================================
+                                 Budget
+                                 ================================= -->
+
                             <div class="trip-cost">
 
                                 💰
+
                                 ${formatMoney(
-                                    calculateTripCost(trip)
+                                    calculateTripCost(
+                                        trip
+                                    )
                                 )}
 
                             </div>
 
 
-                            <!-- รายละเอียดเพิ่มเติม -->
+                            <!-- =================================
+                                 Details
+                                 ================================= -->
+
                             ${
                                 trip.details
 
@@ -323,7 +474,11 @@
                                                 color:#718592;
                                             "
                                         >
-                                            ${escapeHTML(trip.details)}
+
+                                            ${escapeHTML(
+                                                trip.details
+                                            )}
+
                                         </p>
 
                                     `
@@ -332,28 +487,58 @@
                             }
 
 
-                            <!-- ปุ่ม -->
+                            <!-- =================================
+                                 Actions
+                                 ================================= -->
+
                             <div class="trip-actions">
 
 
+                                <!-- Edit -->
+
                                 <a
-                                    href="budget.html?id=${encodeURIComponent(trip.id)}"
+                                    href="trip-planner.html?id=${encodeURIComponent(
+                                        trip.id
+                                    )}"
                                     class="btn btn-secondary"
                                 >
-                                    💰 ดูงบประมาณ
+
+                                    ✏️ แก้ไขทริป
+
                                 </a>
 
+
+                                <!-- Budget -->
+
+                                <a
+                                    href="budget.html?id=${encodeURIComponent(
+                                        trip.id
+                                    )}"
+                                    class="btn btn-secondary"
+                                >
+
+                                    💰 ดูงบประมาณ
+
+                                </a>
+
+
+                                <!-- Delete -->
 
                                 <button
                                     type="button"
                                     class="btn btn-danger"
-                                    onclick="deleteTrip('${escapeHTML(trip.id)}')"
+                                    onclick="deleteTrip('${escapeHTML(
+                                        trip.id
+                                    )}')"
                                 >
+
                                     🗑️ ลบทริป
+
                                 </button>
 
 
                             </div>
+
 
                         </div>
 
@@ -363,54 +548,83 @@
 
             })
             .join("");
+
     }
 
 
-    /*
-     * ลบทริป
-     */
-    function deleteTrip(tripId) {
+    /* =====================================
+       Delete Trip
+       ===================================== */
 
-        const trip = getTripById(tripId);
+    function deleteTrip(
+        tripId
+    ) {
+
+        const trip =
+            getTripById(
+                tripId
+            );
+
 
         if (!trip) {
+
             return;
+
         }
 
 
-        const confirmed = confirm(
-            `ต้องการลบทริป "${trip.tripName}" หรือไม่?`
-        );
+        /* ---------------------------------
+           Confirm
+           --------------------------------- */
+
+        const confirmed =
+            confirm(
+                `ต้องการลบทริป "${trip.tripName}" หรือไม่?`
+            );
 
 
         if (!confirmed) {
+
             return;
+
         }
 
 
-        removeTrip(tripId);
+        /* ---------------------------------
+           Remove
+           --------------------------------- */
+
+        removeTrip(
+            tripId
+        );
 
 
-        /*
-         * แสดงรายการใหม่หลังลบ
-         */
+        /* ---------------------------------
+           Refresh
+           --------------------------------- */
+
         renderTrips();
 
 
-        /*
-         * แจ้งเตือน
-         */
-        showToast("ลบทริปเรียบร้อยแล้ว");
+        /* ---------------------------------
+           Toast
+           --------------------------------- */
+
+        showToast(
+            "ลบทริปเรียบร้อยแล้ว"
+        );
 
     }
 
 
-    /*
-     * เริ่มแสดงข้อมูล
-     */
+    /* =====================================
+       Start
+       ===================================== */
+
     renderTrips();
 
 </script>
 
 </body>
+
 </html>
