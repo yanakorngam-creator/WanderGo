@@ -17,7 +17,309 @@
         href="css/style.css"
     >
 
-</head>
+</head><style>
+
+/* =========================================
+   WanderGo Budget - Modern UI
+   เฉพาะหน้า Budget
+   ========================================= */
+
+body {
+    background:
+        linear-gradient(
+            180deg,
+            #f4f9ff 0%,
+            #ffffff 45%,
+            #f7fbff 100%
+        );
+}
+
+
+/* -----------------------------------------
+   Budget Page Title
+   ----------------------------------------- */
+
+.page-title {
+    margin-bottom: 28px;
+}
+
+.page-title h1 {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.page-title p {
+    margin-top: 8px;
+    color: #718592;
+    font-size: 15px;
+}
+
+
+/* -----------------------------------------
+   Budget Cards
+   ----------------------------------------- */
+
+#budgetContent > .card,
+#budgetContent .card {
+    border: 1px solid #e7eef5;
+    border-radius: 20px;
+    box-shadow:
+        0 8px 30px rgba(30, 75, 110, 0.07);
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+#budgetContent > .card:hover {
+    box-shadow:
+        0 12px 35px rgba(30, 75, 110, 0.10);
+}
+
+
+/* -----------------------------------------
+   Selected Trip
+   ----------------------------------------- */
+
+#budgetContent > .card:first-child {
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff 0%,
+            #f2f8ff 100%
+        );
+}
+
+#budgetContent h2 {
+    color: #12344d;
+    font-weight: 800;
+}
+
+#budgetContent h3 {
+    color: #12344d;
+    font-weight: 700;
+}
+
+
+/* -----------------------------------------
+   Budget Summary Cards
+   ----------------------------------------- */
+
+#budgetContent .grid-3 {
+    gap: 18px;
+}
+
+#budgetContent .grid-3 .card {
+    position: relative;
+    overflow: hidden;
+    min-height: 155px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#budgetContent .grid-3 .card::after {
+    content: "";
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    right: -30px;
+    top: -30px;
+    background: rgba(33, 150, 243, 0.06);
+}
+
+#budgetContent .stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #edf6ff;
+    font-size: 23px;
+    margin-bottom: 12px;
+}
+
+#budgetContent .stat-label {
+    font-size: 14px;
+    color: #718592;
+    margin-bottom: 5px;
+}
+
+#budgetContent .stat-value {
+    font-size: 25px;
+    font-weight: 800;
+    color: #12344d;
+}
+
+
+/* -----------------------------------------
+   Progress Section
+   ----------------------------------------- */
+
+#budgetContent .card:has(
+    div[style*="background:#e8eef2"]
+) {
+    background: #ffffff;
+}
+
+#budgetContent [style*="background:#e8eef2"] {
+    background: #eaf1f7 !important;
+    height: 16px !important;
+    border-radius: 20px !important;
+    box-shadow:
+        inset 0 1px 3px rgba(0,0,0,0.06);
+}
+
+#budgetContent [style*="background:#e8eef2"] > div {
+    background:
+        linear-gradient(
+            90deg,
+            #2196f3,
+            #42a5f5
+        ) !important;
+    border-radius: 20px !important;
+    box-shadow:
+        0 2px 8px rgba(33, 150, 243, 0.25);
+}
+
+
+/* -----------------------------------------
+   Expense Section
+   ----------------------------------------- */
+
+#budgetContent form {
+    background: #f8fbfe;
+    border-radius: 16px;
+    padding: 22px !important;
+}
+
+#budgetContent form h3 {
+    margin-bottom: 5px;
+}
+
+#budgetContent input,
+#budgetContent select {
+    border-radius: 12px;
+    border: 1px solid #dce7ef;
+    background: #ffffff;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+#budgetContent input:focus,
+#budgetContent select:focus {
+    border-color: #2196f3;
+    box-shadow:
+        0 0 0 3px rgba(33, 150, 243, 0.10);
+    outline: none;
+}
+
+
+/* -----------------------------------------
+   Expense List
+   ----------------------------------------- */
+
+#budgetContent .card div[style*="border-bottom"] {
+    padding: 17px 5px !important;
+    border-bottom: 1px solid #edf1f4 !important;
+}
+
+#budgetContent .card div[style*="border-bottom"]:last-child {
+    border-bottom: none !important;
+}
+
+#budgetContent .card div[style*="border-bottom"] strong {
+    color: #12344d;
+}
+
+#budgetContent .btn-danger {
+    border-radius: 10px;
+    padding: 7px 12px;
+    font-size: 13px;
+}
+
+
+/* -----------------------------------------
+   Buttons
+   ----------------------------------------- */
+
+#budgetContent .btn {
+    border-radius: 12px;
+    font-weight: 700;
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+#budgetContent .btn:hover {
+    transform: translateY(-1px);
+}
+
+#budgetContent .btn-primary {
+    box-shadow:
+        0 5px 14px rgba(33, 150, 243, 0.18);
+}
+
+
+/* -----------------------------------------
+   Place Tags
+   ----------------------------------------- */
+
+#budgetContent .place-tag {
+    background: #f0f7fd;
+    border: 1px solid #e0edf7;
+    border-radius: 10px;
+    color: #31566f;
+}
+
+
+/* -----------------------------------------
+   Alert
+   ----------------------------------------- */
+
+#budgetContent .alert {
+    border-radius: 12px;
+    border: none;
+}
+
+
+/* -----------------------------------------
+   Mobile
+   ----------------------------------------- */
+
+@media (max-width: 700px) {
+
+    .page-title h1 {
+        font-size: 26px;
+    }
+
+    #budgetContent .grid-3 {
+        grid-template-columns: 1fr;
+    }
+
+    #budgetContent .grid-3 .card {
+        min-height: 125px;
+    }
+
+    #budgetContent .card {
+        border-radius: 16px;
+    }
+
+    #budgetContent form {
+        padding: 18px !important;
+    }
+
+    #budgetContent .card div[style*="border-bottom"] {
+        flex-direction: column;
+        align-items: flex-start !important;
+    }
+
+}
+
+</style>
 
 
 <body>
@@ -93,19 +395,17 @@
             <div class="page-title">
 
                 <h1>
-                    💰 งบประมาณการเดินทาง
+                    💰 งบประมาณ
                 </h1>
 
                 <p>
-                    ตรวจสอบค่าใช้จ่ายของทริปที่คุณบันทึกไว้
+                    จัดการและติดตามค่าใช้จ่ายของทริปของคุณ
                 </p>
 
             </div>
 
 
-            <!-- =================================
-                 Budget Content
-                 ================================= -->
+            <!-- Budget Content -->
 
             <section id="budgetContent"></section>
 
@@ -129,14 +429,11 @@
 </div>
 
 
-<!-- =====================================
-     JavaScript
-     ===================================== -->
-
 <script src="js/script.js"></script>
 
 
 <script>
+
 
     /* =====================================
        Login Check
@@ -166,7 +463,7 @@
 
 
     /* =====================================
-       Calculate Budget
+       Render Budget
        ===================================== */
 
     function renderBudget() {
@@ -177,11 +474,15 @@
             );
 
 
-        /* ---------------------------------
-           No Trip ID
-           --------------------------------- */
+        const trips =
+            getTrips();
 
-        if (!tripId) {
+
+        /* =================================
+           No Trips
+           ================================= */
+
+        if (trips.length === 0) {
 
             container.innerHTML = `
 
@@ -194,21 +495,20 @@
                         </div>
 
                         <h3>
-                            กรุณาเลือกทริป
+                            ยังไม่มีทริป
                         </h3>
 
                         <p>
-                            เลือกทริปจากหน้าประวัติ
-                            เพื่อดูงบประมาณ
+                            สร้างทริปก่อนเพื่อเริ่มจัดการงบประมาณ
                         </p>
 
                         <br>
 
                         <a
-                            href="history.html"
+                            href="trip-planner.html"
                             class="btn btn-primary"
                         >
-                            📚 ไปหน้าประวัติ
+                            ✈️ สร้างทริป
                         </a>
 
                     </div>
@@ -221,15 +521,139 @@
         }
 
 
-        /* ---------------------------------
-           Get Trip
-           --------------------------------- */
+        /* =================================
+           No Selected Trip
+           ================================= */
+
+        if (!tripId) {
+
+            container.innerHTML = `
+
+                <div class="card">
+
+                    <h2 class="card-title">
+                        🗺️ เลือกทริป
+                    </h2>
+
+                    <p
+                        style="
+                            margin-bottom:20px;
+                            color:#718592;
+                        "
+                    >
+                        เลือกทริปที่ต้องการจัดการงบประมาณ
+                    </p>
+
+
+                    <div class="trip-list">
+
+                        ${
+                            trips
+                                .slice()
+                                .reverse()
+                                .map(
+                                    function(trip) {
+
+                                        return `
+
+                                            <div
+                                                class="trip-card"
+                                            >
+
+                                                <div
+                                                    class="trip-content"
+                                                >
+
+                                                    <h3>
+                                                        ${escapeHTML(
+                                                            trip.tripName
+                                                        )}
+                                                    </h3>
+
+                                                    <div
+                                                        class="trip-meta"
+                                                    >
+
+                                                        <span
+                                                            class="place-tag"
+                                                        >
+                                                            📍
+                                                            ${escapeHTML(
+                                                                trip.destination
+                                                            )}
+                                                        </span>
+
+                                                        <span
+                                                            class="place-tag"
+                                                        >
+                                                            📅
+                                                            ${formatDate(
+                                                                trip.startDate
+                                                            )}
+                                                        </span>
+
+                                                    </div>
+
+                                                    <div
+                                                        class="trip-cost"
+                                                    >
+                                                        💰
+                                                        ${formatMoney(
+                                                            calculateTripCost(
+                                                                trip
+                                                            )
+                                                        )}
+                                                    </div>
+
+                                                    <div
+                                                        class="trip-actions"
+                                                    >
+
+                                                        <a
+                                                            href="budget.html?id=${encodeURIComponent(
+                                                                trip.id
+                                                            )}"
+                                                            class="btn btn-primary"
+                                                        >
+                                                            💰 จัดการงบประมาณ
+                                                        </a>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        `;
+
+                                    }
+                                )
+                                .join("")
+                        }
+
+                    </div>
+
+                </div>
+
+            `;
+
+            return;
+        }
+
+
+        /* =================================
+           Get Selected Trip
+           ================================= */
 
         const trip =
             getTripById(
                 tripId
             );
 
+
+        /* =================================
+           Trip Not Found
+           ================================= */
 
         if (!trip) {
 
@@ -248,17 +672,17 @@
                         </h3>
 
                         <p>
-                            อาจถูกลบออกจากระบบแล้ว
+                            กรุณาเลือกทริปใหม่
                         </p>
 
                         <br>
 
-                        <a
-                            href="history.html"
+                        <button
                             class="btn btn-primary"
+                            onclick="showTripList()"
                         >
-                            📚 กลับหน้าประวัติ
-                        </a>
+                            🗺️ เลือกทริป
+                        </button>
 
                     </div>
 
@@ -270,71 +694,120 @@
         }
 
 
-        /* ---------------------------------
-           Calculate
-           --------------------------------- */
+        /* =================================
+           Calculate Budget
+           ================================= */
 
-        const total =
-            calculateTripCost(
-                trip
+        const budget =
+            Number(
+                trip.totalCost
+            ) || 0;
+
+
+        const expenses =
+            calculateExpenses(
+                trip.expenses || []
             );
 
 
-        const places =
-            trip.places || [];
+        const remaining =
+            budget - expenses;
 
 
-        /* ---------------------------------
-           Render
-           --------------------------------- */
+        let percent = 0;
+
+
+        if (budget > 0) {
+
+            percent =
+                Math.min(
+                    100,
+                    Math.round(
+                        (
+                            expenses /
+                            budget
+                        ) * 100
+                    )
+                );
+
+        }
+
+
+        /* =================================
+           Render Selected Trip
+           ================================= */
 
         container.innerHTML = `
 
-            <!-- Trip Summary -->
+            <!-- =================================
+                 Selected Trip
+                 ================================= -->
 
             <div class="card">
 
-                <h2>
-                    🗺️ ${escapeHTML(
-                        trip.tripName
-                    )}
-                </h2>
+                <div
+                    style="
+                        display:flex;
+                        justify-content:space-between;
+                        align-items:flex-start;
+                        gap:15px;
+                        flex-wrap:wrap;
+                    "
+                >
 
-                <p>
-                    📍 ${escapeHTML(
-                        trip.destination
-                    )}
+                    <div>
 
-                    ${
-                        trip.province
-                            ? " · " +
-                              escapeHTML(
-                                  trip.province
-                              )
-                            : ""
-                    }
-                </p>
+                        <h2>
+                            🗺️ ${escapeHTML(
+                                trip.tripName
+                            )}
+                        </h2>
+
+                        <p>
+                            📍 ${escapeHTML(
+                                trip.destination
+                            )}
+
+                            ${
+                                trip.province
+                                    ? " · " +
+                                      escapeHTML(
+                                          trip.province
+                                      )
+                                    : ""
+                            }
+                        </p>
+
+                    </div>
 
 
-                <div class="trip-meta">
+                    <button
+                        class="btn btn-secondary"
+                        onclick="showTripList()"
+                    >
+                        🔄 เปลี่ยนทริป
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="trip-meta"
+                    style="margin-top:15px;"
+                >
 
                     <span class="place-tag">
-
                         📅
                         ${formatDate(
                             trip.startDate
                         )}
-
                     </span>
 
-
                     <span class="place-tag">
-
                         ถึง
                         ${formatDate(
                             trip.endDate
                         )}
-
                     </span>
 
                 </div>
@@ -342,47 +815,408 @@
             </div>
 
 
-            <!-- Total Budget -->
+            <!-- =================================
+                 Budget Summary
+                 ================================= -->
+
+            <div
+                class="grid-3"
+                style="margin-top:20px;"
+            >
+
+
+                <div class="card">
+
+                    <div class="stat-icon">
+                        💰
+                    </div>
+
+                    <div class="stat-label">
+                        งบประมาณทั้งหมด
+                    </div>
+
+                    <div class="stat-value">
+                        ${formatMoney(
+                            budget
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="stat-icon">
+                        💸
+                    </div>
+
+                    <div class="stat-label">
+                        ใช้ไปแล้ว
+                    </div>
+
+                    <div class="stat-value">
+                        ${formatMoney(
+                            expenses
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="stat-icon">
+                        ${
+                            remaining >= 0
+                                ? "💵"
+                                : "⚠️"
+                        }
+                    </div>
+
+                    <div class="stat-label">
+                        คงเหลือ
+                    </div>
+
+                    <div class="stat-value">
+                        ${formatMoney(
+                            remaining
+                        )}
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- =================================
+                 Progress
+                 ================================= -->
 
             <div
                 class="card"
                 style="margin-top:20px;"
             >
 
-                <div class="empty-state">
+                <h2>
+                    📊 การใช้งบประมาณ
+                </h2>
 
-                    <div class="empty-icon">
-                        💰
-                    </div>
 
-                    <h2>
-                        งบประมาณทั้งหมด
-                    </h2>
+                <div
+                    style="
+                        margin-top:15px;
+                        background:#e8eef2;
+                        height:18px;
+                        border-radius:20px;
+                        overflow:hidden;
+                    "
+                >
 
                     <div
                         style="
-                            font-size:36px;
-                            font-weight:bold;
-                            margin:15px 0;
+                            width:${percent}%;
+                            height:100%;
+                            background:#2196f3;
+                            border-radius:20px;
+                            transition:width 0.3s ease;
                         "
-                    >
-
-                        ${formatMoney(
-                            total
-                        )}
-
-                    </div>
-
-                    <p>
-                        งบประมาณที่กำหนดไว้สำหรับทริปนี้
-                    </p>
+                    ></div>
 
                 </div>
+
+
+                <p
+                    style="
+                        margin-top:10px;
+                        color:#718592;
+                    "
+                >
+
+                    ใช้ไปแล้ว
+                    <strong>
+                        ${percent}%
+                    </strong>
+                    ของงบประมาณทั้งหมด
+
+                </p>
+
+
+                ${
+                    remaining < 0
+
+                        ? `
+
+                            <div
+                                class="alert alert-danger"
+                                style="margin-top:15px;"
+                            >
+                                ⚠️ ค่าใช้จ่ายเกินงบประมาณ
+                                ${formatMoney(
+                                    Math.abs(
+                                        remaining
+                                    )
+                                )}
+                            </div>
+
+                        `
+
+                        : remaining <= budget * 0.2
+
+                            ? `
+
+                                <div
+                                    class="alert"
+                                    style="margin-top:15px;"
+                                >
+                                    ⚠️ เหลืองบประมาณไม่ถึง 20%
+                                </div>
+
+                            `
+
+                            : ""
+
+                }
 
             </div>
 
 
-            <!-- Places -->
+            <!-- =================================
+                 Expenses
+                 ================================= -->
+
+            <div
+                class="card"
+                style="margin-top:20px;"
+            >
+
+                <h2>
+                    🧾 รายการค่าใช้จ่าย
+                </h2>
+
+
+                ${
+                    trip.expenses &&
+                    trip.expenses.length > 0
+
+                        ? `
+
+                            <div
+                                style="
+                                    margin-top:15px;
+                                "
+                            >
+
+                                ${trip.expenses
+                                    .map(
+                                        function(
+                                            expense,
+                                            index
+                                        ) {
+
+                                            return `
+
+                                                <div
+                                                    style="
+                                                        display:flex;
+                                                        justify-content:space-between;
+                                                        align-items:center;
+                                                        gap:15px;
+                                                        padding:15px 0;
+                                                        border-bottom:1px solid #e5e7eb;
+                                                    "
+                                                >
+
+                                                    <div>
+
+                                                        <strong>
+                                                            ${escapeHTML(
+                                                                expense.name ||
+                                                                "ค่าใช้จ่าย"
+                                                            )}
+                                                        </strong>
+
+                                                        <div
+                                                            style="
+                                                                margin-top:5px;
+                                                                color:#718592;
+                                                                font-size:14px;
+                                                            "
+                                                        >
+
+                                                            ${
+                                                                expense.category
+                                                                    ? escapeHTML(
+                                                                        expense.category
+                                                                    )
+                                                                    : "อื่น ๆ"
+                                                            }
+
+                                                        </div>
+
+                                                    </div>
+
+
+                                                    <div
+                                                        style="
+                                                            display:flex;
+                                                            align-items:center;
+                                                            gap:15px;
+                                                        "
+                                                    >
+
+                                                        <strong>
+                                                            ${formatMoney(
+                                                                expense.amount
+                                                            )}
+                                                        </strong>
+
+                                                        <button
+                                                            class="btn btn-danger"
+                                                            onclick="deleteExpense(${index})"
+                                                        >
+                                                            ลบ
+                                                        </button>
+
+                                                    </div>
+
+                                                </div>
+
+                                            `;
+
+                                        }
+                                    )
+                                    .join("")}
+
+                            </div>
+
+                        `
+
+                        : `
+
+                            <p
+                                style="
+                                    margin-top:15px;
+                                    color:#718592;
+                                "
+                            >
+                                ยังไม่มีรายการค่าใช้จ่าย
+                            </p>
+
+                        `
+
+                }
+
+
+                <!-- Add Expense -->
+
+                <form
+                    id="expenseForm"
+                    style="
+                        margin-top:25px;
+                        padding-top:20px;
+                        border-top:1px solid #e5e7eb;
+                    "
+                >
+
+                    <h3>
+                        ➕ เพิ่มค่าใช้จ่าย
+                    </h3>
+
+
+                    <div
+                        class="grid-2"
+                        style="margin-top:15px;"
+                    >
+
+                        <div class="form-group">
+
+                            <label>
+                                รายการ
+                            </label>
+
+                            <input
+                                type="text"
+                                id="expenseName"
+                                placeholder="เช่น ค่าโรงแรม"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                จำนวนเงิน
+                            </label>
+
+                            <input
+                                type="number"
+                                id="expenseAmount"
+                                placeholder="0"
+                                min="0"
+                                step="0.01"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            หมวดหมู่
+                        </label>
+
+                        <select id="expenseCategory">
+
+                            <option value="ที่พัก">
+                                🏨 ที่พัก
+                            </option>
+
+                            <option value="อาหาร">
+                                🍜 อาหาร
+                            </option>
+
+                            <option value="เดินทาง">
+                                🚗 เดินทาง
+                            </option>
+
+                            <option value="กิจกรรม">
+                                🎡 กิจกรรม
+                            </option>
+
+                            <option value="ช้อปปิ้ง">
+                                🛍️ ช้อปปิ้ง
+                            </option>
+
+                            <option value="อื่น ๆ">
+                                📦 อื่น ๆ
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        ➕ เพิ่มค่าใช้จ่าย
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <!-- =================================
+                 Places
+                 ================================= -->
 
             <div
                 class="card"
@@ -395,7 +1229,8 @@
 
 
                 ${
-                    places.length > 0
+                    trip.places &&
+                    trip.places.length > 0
 
                         ? `
 
@@ -404,7 +1239,7 @@
                                 style="margin-top:15px;"
                             >
 
-                                ${places
+                                ${trip.places
                                     .map(
                                         function(place) {
 
@@ -443,75 +1278,198 @@
                             </p>
 
                         `
+
                 }
 
             </div>
 
 
-            <!-- Details -->
-
-            ${
-                trip.details
-
-                    ? `
-
-                        <div
-                            class="card"
-                            style="margin-top:20px;"
-                        >
-
-                            <h2>
-                                📝 รายละเอียดทริป
-                            </h2>
-
-                            <p
-                                style="
-                                    margin-top:15px;
-                                    line-height:1.8;
-                                "
-                            >
-                                ${escapeHTML(
-                                    trip.details
-                                )}
-                            </p>
-
-                        </div>
-
-                    `
-
-                    : ""
-            }
-
-
-            <!-- Actions -->
-
-            <div
-                style="
-                    margin-top:20px;
-                    display:flex;
-                    gap:10px;
-                    flex-wrap:wrap;
-                "
-            >
-
-                <a
-                    href="history.html"
-                    class="btn btn-secondary"
-                >
-                    📚 กลับหน้าประวัติ
-                </a>
-
-
-                <a
-                    href="trip-planner.html"
-                    class="btn btn-primary"
-                >
-                    ✈️ สร้างทริปใหม่
-                </a>
-
-            </div>
-
         `;
+
+
+        /* =================================
+           Expense Form
+           ================================= */
+
+        const expenseForm =
+            document.getElementById(
+                "expenseForm"
+            );
+
+
+        expenseForm.addEventListener(
+            "submit",
+            function(event) {
+
+                event.preventDefault();
+
+
+                const name =
+                    document
+                        .getElementById(
+                            "expenseName"
+                        )
+                        .value
+                        .trim();
+
+
+                const amount =
+                    Number(
+                        document
+                            .getElementById(
+                                "expenseAmount"
+                            )
+                            .value
+                    );
+
+
+                const category =
+                    document
+                        .getElementById(
+                            "expenseCategory"
+                        )
+                        .value;
+
+
+                if (
+                    !name ||
+                    amount <= 0
+                ) {
+
+                    alert(
+                        "กรุณากรอกข้อมูลค่าใช้จ่ายให้ถูกต้อง"
+                    );
+
+                    return;
+                }
+
+
+                const expenses =
+                    Array.isArray(
+                        trip.expenses
+                    )
+                        ? trip.expenses
+                        : [];
+
+
+                expenses.push({
+
+                    id:
+                        generateId(),
+
+                    name:
+                        name,
+
+                    amount:
+                        amount,
+
+                    category:
+                        category,
+
+                    createdAt:
+                        new Date()
+                            .toISOString()
+
+                });
+
+
+                updateTrip(
+                    trip.id,
+                    {
+                        expenses:
+                            expenses
+                    }
+                );
+
+
+                showToast(
+                    "เพิ่มค่าใช้จ่ายแล้ว"
+                );
+
+
+                renderBudget();
+
+            }
+        );
+
+    }
+
+
+    /* =====================================
+       Delete Expense
+       ===================================== */
+
+    function deleteExpense(index) {
+
+        const trip =
+            getTripById(
+                tripId
+            );
+
+
+        if (!trip) {
+
+            return;
+        }
+
+
+        const expenses =
+            Array.isArray(
+                trip.expenses
+            )
+                ? trip.expenses
+                : [];
+
+
+        if (
+            !confirm(
+                "ต้องการลบรายการค่าใช้จ่ายนี้หรือไม่?"
+            )
+        ) {
+
+            return;
+        }
+
+
+        expenses.splice(
+            index,
+            1
+        );
+
+
+        updateTrip(
+            trip.id,
+            {
+                expenses:
+                    expenses
+            }
+        );
+
+
+        showToast(
+            "ลบค่าใช้จ่ายแล้ว"
+        );
+
+
+        renderBudget();
+
+    }
+
+
+    /* =====================================
+       Show Trip List
+       ===================================== */
+
+    function showTripList() {
+
+        window.history.pushState(
+            {},
+            "",
+            "budget.html"
+        );
+
+
+        window.location.reload();
 
     }
 
@@ -521,6 +1479,7 @@
        ===================================== */
 
     renderBudget();
+
 
 </script>
 
