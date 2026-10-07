@@ -10,7 +10,7 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>WanderGo - ประวัติการเดินทาง</title>
+    <title>WanderGo - วางแผนทริป</title>
 
     <link
         rel="stylesheet"
@@ -49,32 +49,26 @@
             </a>
 
 
-            <!-- Navigation -->
-
             <nav class="nav">
 
                 <a href="dashboard.html">
                     Dashboard
                 </a>
 
-
-                <a href="trip-planner.html">
+                <a
+                    href="trip-planner.html"
+                    class="active"
+                >
                     วางแผนทริป
                 </a>
-
 
                 <a href="budget.html">
                     งบประมาณ
                 </a>
 
-
-                <a
-                    href="history.html"
-                    class="active"
-                >
+                <a href="history.html">
                     ประวัติ
                 </a>
-
 
                 <a href="profile.html">
                     โปรไฟล์
@@ -96,39 +90,263 @@
         <div class="container">
 
 
-            <!-- Page Title -->
-
             <div class="page-title">
 
-                <h1>
-                    📚 ประวัติการเดินทาง
+                <h1 id="pageTitle">
+                    🗺️ วางแผนทริปใหม่
                 </h1>
 
-                <p>
-                    ทริปทั้งหมดที่คุณบันทึกไว้
+                <p id="pageDescription">
+                    สร้างแผนการเดินทางของคุณ
+                    และบันทึกไว้ใน WanderGo
                 </p>
 
             </div>
 
 
             <!-- =================================
-                 Trip List
+                 Trip Form
                  ================================= -->
 
-            <section
-                id="tripList"
-                class="trip-list"
-            ></section>
+            <form
+                id="tripForm"
+                class="card"
+            >
 
+
+                <!-- Trip Name -->
+
+                <div class="form-group">
+
+                    <label for="tripName">
+                        ชื่อทริป *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="tripName"
+                        placeholder="เช่น เที่ยวเชียงใหม่ 3 วัน"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Destination -->
+
+                <div class="grid-2">
+
+                    <div class="form-group">
+
+                        <label for="destination">
+                            จุดหมายปลายทาง *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="destination"
+                            placeholder="เช่น เชียงใหม่"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="province">
+                            จังหวัด
+                        </label>
+
+                        <input
+                            type="text"
+                            id="province"
+                            placeholder="เช่น เชียงใหม่"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- Country -->
+
+                <div class="form-group">
+
+                    <label for="country">
+                        ประเทศ
+                    </label>
+
+                    <input
+                        type="text"
+                        id="country"
+                        value="ประเทศไทย"
+                    >
+
+                </div>
+
+
+                <!-- Dates -->
+
+                <div class="grid-2">
+
+                    <div class="form-group">
+
+                        <label for="startDate">
+                            วันเริ่มเดินทาง *
+                        </label>
+
+                        <input
+                            type="date"
+                            id="startDate"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="endDate">
+                            วันสิ้นสุด *
+                        </label>
+
+                        <input
+                            type="date"
+                            id="endDate"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- Travelers -->
+
+                <div class="form-group">
+
+                    <label for="travelers">
+                        ผู้ร่วมเดินทาง
+                    </label>
+
+                    <input
+                        type="text"
+                        id="travelers"
+                        placeholder="เช่น เพื่อน, ครอบครัว"
+                    >
+
+                    <small
+                        style="
+                            display:block;
+                            margin-top:6px;
+                            color:#7b8d98;
+                        "
+                    >
+                        หากมีหลายคน ให้คั่นด้วยเครื่องหมาย ,
+                    </small>
+
+                </div>
+
+
+                <!-- Places -->
+
+                <div class="form-group">
+
+                    <label for="places">
+                        สถานที่ท่องเที่ยว
+                    </label>
+
+                    <textarea
+                        id="places"
+                        placeholder="เช่น วัดพระธาตุดอยสุเทพ, ถนนคนเดินท่าแพ, นิมมานเหมินท์"
+                    ></textarea>
+
+                    <small
+                        style="
+                            display:block;
+                            margin-top:6px;
+                            color:#7b8d98;
+                        "
+                    >
+                        หากมีหลายสถานที่ ให้คั่นด้วยเครื่องหมาย ,
+                    </small>
+
+                </div>
+
+
+                <!-- Budget -->
+
+                <div class="form-group">
+
+                    <label for="totalCost">
+                        งบประมาณเริ่มต้น
+                    </label>
+
+                    <input
+                        type="number"
+                        id="totalCost"
+                        min="0"
+                        step="1"
+                        placeholder="เช่น 5000"
+                    >
+
+                </div>
+
+
+                <!-- Details -->
+
+                <div class="form-group">
+
+                    <label for="details">
+                        รายละเอียดเพิ่มเติม
+                    </label>
+
+                    <textarea
+                        id="details"
+                        placeholder="เขียนรายละเอียดเกี่ยวกับทริปนี้..."
+                    ></textarea>
+
+                </div>
+
+
+                <!-- Buttons -->
+
+                <div
+                    style="
+                        display:flex;
+                        flex-wrap:wrap;
+                        gap:10px;
+                        margin-top:25px;
+                    "
+                >
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                        id="submitButton"
+                    >
+                        💾 บันทึกทริป
+                    </button>
+
+
+                    <a
+                        href="dashboard.html"
+                        class="btn btn-secondary"
+                    >
+                        ยกเลิก
+                    </a>
+
+                </div>
+
+            </form>
 
         </div>
 
     </main>
 
 
-    <!-- =====================================
-         Footer
-         ===================================== -->
+    <!-- Footer -->
 
     <footer class="footer">
 
@@ -141,7 +359,7 @@
 
 
 <!-- =====================================
-     Main JavaScript
+     JavaScript
      ===================================== -->
 
 <script src="js/script.js"></script>
@@ -163,465 +381,545 @@
 
 
     /* =====================================
-       Render Trips
+       Check Edit Mode
        ===================================== */
 
-    function renderTrips() {
+    const urlParams =
+        new URLSearchParams(
+            window.location.search
+        );
 
-        const trips =
-            getTrips();
+    const editTripId =
+        urlParams.get("id");
 
 
-        const container =
-            document.getElementById(
-                "tripList"
-            );
-
-
-        /* =================================
-           No Trips
-           ================================= */
-
-        if (trips.length === 0) {
-
-            container.innerHTML = `
-
-                <div class="card">
-
-                    <div class="empty-state">
-
-                        <div class="empty-icon">
-                            🗺️
-                        </div>
-
-
-                        <h3>
-                            ยังไม่มีประวัติการเดินทาง
-                        </h3>
-
-
-                        <p>
-                            เริ่มสร้างทริปแรกของคุณได้เลย
-                        </p>
-
-
-                        <br>
-
-
-                        <a
-                            href="trip-planner.html"
-                            class="btn btn-primary"
-                        >
-                            ✈️ สร้างทริปใหม่
-                        </a>
-
-                    </div>
-
-                </div>
-
-            `;
-
-            return;
-
-        }
-
-
-        /* =================================
-           Render Trips
-           ================================= */
-
-        container.innerHTML = trips
-            .slice()
-            .reverse()
-            .map(function(trip) {
-
-
-                /* ---------------------------------
-                   Places
-                   --------------------------------- */
-
-                const places =
-                    trip.places || [];
-
-
-                /* ---------------------------------
-                   First Place
-                   --------------------------------- */
-
-                const firstPlace =
-                    places.length > 0
-                        ? places[0]
-                        : null;
-
-
-                /* ---------------------------------
-                   Image
-                   --------------------------------- */
-
-                const image =
-                    firstPlace &&
-                    firstPlace.image
-                        ? firstPlace.image
-                        : "";
-
-
-                /* ---------------------------------
-                   Places HTML
-                   --------------------------------- */
-
-                const placesHTML =
-                    places.length > 0
-
-                        ? places
-                            .map(
-                                function(place) {
-
-                                    return `
-
-                                        <span class="place-tag">
-
-                                            📍
-                                            ${escapeHTML(
-                                                place.name
-                                            )}
-
-                                        </span>
-
-                                    `;
-
-                                }
-                            )
-                            .join("")
-
-                        : `
-
-                            <span class="place-tag">
-
-                                ยังไม่ได้เพิ่มสถานที่
-
-                            </span>
-
-                        `;
-
-
-                /* ---------------------------------
-                   Trip Card
-                   --------------------------------- */
-
-                return `
-
-                    <article class="trip-card">
-
-
-                        <!-- =================================
-                             Trip Image
-                             ================================= -->
-
-                        <div>
-
-                            ${
-                                image
-
-                                    ? `
-
-                                        <img
-                                            src="${escapeHTML(image)}"
-                                            class="trip-image"
-                                            alt="${escapeHTML(
-                                                trip.tripName
-                                            )}"
-                                        >
-
-                                    `
-
-                                    : `
-
-                                        <div
-                                            class="trip-image"
-                                            style="
-                                                background:#eaf7ff;
-                                                display:flex;
-                                                align-items:center;
-                                                justify-content:center;
-                                                font-size:55px;
-                                            "
-                                        >
-
-                                            🗺️
-
-                                        </div>
-
-                                    `
-                            }
-
-                        </div>
-
-
-                        <!-- =================================
-                             Trip Content
-                             ================================= -->
-
-                        <div class="trip-content">
-
-
-                            <!-- Trip Name -->
-
-                            <h3>
-
-                                ${escapeHTML(
-                                    trip.tripName
-                                )}
-
-                            </h3>
-
-
-                            <!-- Destination -->
-
-                            <p>
-
-                                📍
-
-                                ${escapeHTML(
-                                    trip.destination
-                                )}
-
-                                ${
-                                    trip.province
-
-                                        ? " · " +
-                                          escapeHTML(
-                                              trip.province
-                                          )
-
-                                        : ""
-                                }
-
-                            </p>
-
-
-                            <!-- =================================
-                                 Dates
-                                 ================================= -->
-
-                            <div class="trip-meta">
-
-
-                                <span class="place-tag">
-
-                                    📅
-
-                                    ${formatDate(
-                                        trip.startDate
-                                    )}
-
-                                </span>
-
-
-                                <span class="place-tag">
-
-                                    ถึง
-
-                                    ${formatDate(
-                                        trip.endDate
-                                    )}
-
-                                </span>
-
-
-                            </div>
-
-
-                            <!-- =================================
-                                 Places
-                                 ================================= -->
-
-                            <div class="trip-meta">
-
-                                ${placesHTML}
-
-                            </div>
-
-
-                            <!-- =================================
-                                 Budget
-                                 ================================= -->
-
-                            <div class="trip-cost">
-
-                                💰
-
-                                ${formatMoney(
-                                    calculateTripCost(
-                                        trip
-                                    )
-                                )}
-
-                            </div>
-
-
-                            <!-- =================================
-                                 Details
-                                 ================================= -->
-
-                            ${
-                                trip.details
-
-                                    ? `
-
-                                        <p
-                                            style="
-                                                margin-top:10px;
-                                                color:#718592;
-                                            "
-                                        >
-
-                                            ${escapeHTML(
-                                                trip.details
-                                            )}
-
-                                        </p>
-
-                                    `
-
-                                    : ""
-                            }
-
-
-                            <!-- =================================
-                                 Actions
-                                 ================================= -->
-
-                            <div class="trip-actions">
-
-
-                                <!-- Edit -->
-
-                                <a
-                                    href="trip-planner.html?id=${encodeURIComponent(
-                                        trip.id
-                                    )}"
-                                    class="btn btn-secondary"
-                                >
-
-                                    ✏️ แก้ไขทริป
-
-                                </a>
-
-
-                                <!-- Budget -->
-
-                                <a
-                                    href="budget.html?id=${encodeURIComponent(
-                                        trip.id
-                                    )}"
-                                    class="btn btn-secondary"
-                                >
-
-                                    💰 ดูงบประมาณ
-
-                                </a>
-
-
-                                <!-- Delete -->
-
-                                <button
-                                    type="button"
-                                    class="btn btn-danger"
-                                    onclick="deleteTrip('${escapeHTML(
-                                        trip.id
-                                    )}')"
-                                >
-
-                                    🗑️ ลบทริป
-
-                                </button>
-
-
-                            </div>
-
-
-                        </div>
-
-                    </article>
-
-                `;
-
-            })
-            .join("");
-
-    }
+    let editingTrip = null;
 
 
     /* =====================================
-       Delete Trip
+       Get Elements
        ===================================== */
 
-    function deleteTrip(
-        tripId
-    ) {
+    const tripForm =
+        document.getElementById(
+            "tripForm"
+        );
 
-        const trip =
+    const pageTitle =
+        document.getElementById(
+            "pageTitle"
+        );
+
+    const pageDescription =
+        document.getElementById(
+            "pageDescription"
+        );
+
+    const submitButton =
+        document.getElementById(
+            "submitButton"
+        );
+
+
+    /* =====================================
+       Load Existing Trip
+       ===================================== */
+
+    if (editTripId) {
+
+        editingTrip =
             getTripById(
-                tripId
+                editTripId
             );
 
 
-        if (!trip) {
+        if (!editingTrip) {
 
-            return;
+            alert(
+                "ไม่พบข้อมูลทริปที่ต้องการแก้ไข"
+            );
+
+            window.location.href =
+                "history.html";
 
         }
 
 
         /* ---------------------------------
-           Confirm
+           Change Page Text
            --------------------------------- */
 
-        const confirmed =
-            confirm(
-                `ต้องการลบทริป "${trip.tripName}" หรือไม่?`
-            );
+        pageTitle.textContent =
+            "✏️ แก้ไขทริป";
 
+        pageDescription.textContent =
+            "แก้ไขข้อมูลทริปของคุณแล้วบันทึกการเปลี่ยนแปลง";
 
-        if (!confirmed) {
-
-            return;
-
-        }
+        submitButton.textContent =
+            "✏️ บันทึกการแก้ไข";
 
 
         /* ---------------------------------
-           Remove
+           Fill Existing Data
            --------------------------------- */
 
-        removeTrip(
-            tripId
-        );
+        document.getElementById(
+            "tripName"
+        ).value =
+            editingTrip.tripName || "";
 
 
-        /* ---------------------------------
-           Refresh
-           --------------------------------- */
+        document.getElementById(
+            "destination"
+        ).value =
+            editingTrip.destination || "";
 
-        renderTrips();
+
+        document.getElementById(
+            "province"
+        ).value =
+            editingTrip.province || "";
 
 
-        /* ---------------------------------
-           Toast
-           --------------------------------- */
+        document.getElementById(
+            "country"
+        ).value =
+            editingTrip.country || "ประเทศไทย";
 
-        showToast(
-            "ลบทริปเรียบร้อยแล้ว"
-        );
+
+        document.getElementById(
+            "startDate"
+        ).value =
+            editingTrip.startDate || "";
+
+
+        document.getElementById(
+            "endDate"
+        ).value =
+            editingTrip.endDate || "";
+
+
+        document.getElementById(
+            "travelers"
+        ).value =
+            Array.isArray(editingTrip.travelers)
+                ? editingTrip.travelers.join(", ")
+                : "";
+
+
+        document.getElementById(
+            "places"
+        ).value =
+            Array.isArray(editingTrip.places)
+                ? editingTrip.places
+                    .map(function(place) {
+
+                        return place.name || "";
+
+                    })
+                    .filter(function(name) {
+
+                        return name !== "";
+
+                    })
+                    .join(", ")
+                : "";
+
+
+        document.getElementById(
+            "totalCost"
+        ).value =
+            editingTrip.totalCost || 0;
+
+
+        document.getElementById(
+            "details"
+        ).value =
+            editingTrip.details || "";
 
     }
 
 
     /* =====================================
-       Start
+       Form Submit
        ===================================== */
 
-    renderTrips();
+    tripForm.addEventListener(
+        "submit",
+        function(event) {
+
+            event.preventDefault();
+
+
+            /* ---------------------------------
+               Get Values
+               --------------------------------- */
+
+            const tripName =
+                document
+                    .getElementById(
+                        "tripName"
+                    )
+                    .value
+                    .trim();
+
+
+            const destination =
+                document
+                    .getElementById(
+                        "destination"
+                    )
+                    .value
+                    .trim();
+
+
+            const province =
+                document
+                    .getElementById(
+                        "province"
+                    )
+                    .value
+                    .trim();
+
+
+            const country =
+                document
+                    .getElementById(
+                        "country"
+                    )
+                    .value
+                    .trim();
+
+
+            const startDate =
+                document
+                    .getElementById(
+                        "startDate"
+                    )
+                    .value;
+
+
+            const endDate =
+                document
+                    .getElementById(
+                        "endDate"
+                    )
+                    .value;
+
+
+            const travelersText =
+                document
+                    .getElementById(
+                        "travelers"
+                    )
+                    .value
+                    .trim();
+
+
+            const placesText =
+                document
+                    .getElementById(
+                        "places"
+                    )
+                    .value
+                    .trim();
+
+
+            const totalCost =
+                Number(
+                    document
+                        .getElementById(
+                            "totalCost"
+                        )
+                        .value
+                ) || 0;
+
+
+            const details =
+                document
+                    .getElementById(
+                        "details"
+                    )
+                    .value
+                    .trim();
+
+
+            /* ---------------------------------
+               Validation
+               --------------------------------- */
+
+            if (
+                tripName === "" ||
+                destination === "" ||
+                startDate === "" ||
+                endDate === ""
+            ) {
+
+                alert(
+                    "กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบ"
+                );
+
+                return;
+
+            }
+
+
+            if (
+                new Date(endDate) <
+                new Date(startDate)
+            ) {
+
+                alert(
+                    "วันสิ้นสุดต้องไม่ก่อนวันเริ่มเดินทาง"
+                );
+
+                return;
+
+            }
+
+
+            /* ---------------------------------
+               Travelers
+               --------------------------------- */
+
+            const travelers =
+                travelersText === ""
+                    ? []
+                    : travelersText
+                        .split(",")
+                        .map(
+                            function(item) {
+
+                                return item.trim();
+
+                            }
+                        )
+                        .filter(
+                            function(item) {
+
+                                return item !== "";
+
+                            }
+                        );
+
+
+            /* ---------------------------------
+               Places
+               --------------------------------- */
+
+            const places =
+                placesText === ""
+                    ? []
+                    : placesText
+                        .split(",")
+                        .map(
+                            function(item, index) {
+
+                                return {
+
+                                    id:
+                                        "place-" +
+                                        Date.now() +
+                                        "-" +
+                                        index,
+
+                                    name:
+                                        item.trim(),
+
+                                    image:
+                                        ""
+
+                                };
+
+                            }
+                        )
+                        .filter(
+                            function(place) {
+
+                                return (
+                                    place.name !== ""
+                                );
+
+                            }
+                        );
+
+
+            /* =================================
+               EDIT EXISTING TRIP
+               ================================= */
+
+            if (editingTrip) {
+
+                const updatedTrip = {
+
+                    tripName:
+                        tripName,
+
+                    destination:
+                        destination,
+
+                    province:
+                        province,
+
+                    country:
+                        country,
+
+                    startDate:
+                        startDate,
+
+                    endDate:
+                        endDate,
+
+                    totalCost:
+                        totalCost,
+
+                    travelers:
+                        travelers,
+
+                    places:
+                        places,
+
+                    details:
+                        details
+
+                };
+
+
+                /*
+                 * สำคัญ:
+                 * เราไม่แตะ expenses
+                 *
+                 * ดังนั้นค่าใช้จ่ายที่เพิ่มไว้ใน
+                 * หน้า Budget จะยังอยู่เหมือนเดิม
+                 */
+
+                const updated =
+                    updateTrip(
+                        editingTrip.id,
+                        updatedTrip
+                    );
+
+
+                if (!updated) {
+
+                    alert(
+                        "ไม่สามารถแก้ไขทริปได้"
+                    );
+
+                    return;
+
+                }
+
+
+                showToast(
+                    "แก้ไขทริปเรียบร้อยแล้ว ✨"
+                );
+
+
+                setTimeout(
+                    function() {
+
+                        window.location.href =
+                            "history.html";
+
+                    },
+                    800
+                );
+
+
+                return;
+
+            }
+
+
+            /* =================================
+               CREATE NEW TRIP
+               ================================= */
+
+            const trip = {
+
+                tripName:
+                    tripName,
+
+                destination:
+                    destination,
+
+                province:
+                    province,
+
+                country:
+                    country,
+
+                startDate:
+                    startDate,
+
+                endDate:
+                    endDate,
+
+                totalCost:
+                    totalCost,
+
+                travelers:
+                    travelers,
+
+                places:
+                    places,
+
+                expenses:
+                    [],
+
+                details:
+                    details
+
+            };
+
+
+            const savedTrip =
+                addTrip(
+                    trip
+                );
+
+
+            /* ---------------------------------
+               Check Save
+               --------------------------------- */
+
+            if (!savedTrip) {
+
+                alert(
+                    "ไม่สามารถบันทึกทริปได้"
+                );
+
+                return;
+
+            }
+
+
+            /* ---------------------------------
+               Confirm
+               --------------------------------- */
+
+            showToast(
+                "บันทึกทริปเรียบร้อยแล้ว 🎉"
+            );
+
+
+            /* ---------------------------------
+               Go to History
+               --------------------------------- */
+
+            setTimeout(
+                function() {
+
+                    window.location.href =
+                        "history.html";
+
+                },
+                800
+            );
+
+        }
+    );
 
 </script>
 
