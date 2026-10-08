@@ -26,19 +26,19 @@
 
 
     <!-- =====================================
-         Header
+         Navigation
          ===================================== -->
 
-    <header class="header">
+    <header class="navbar">
 
-        <div class="container header-inner">
+        <div class="nav-container">
 
             <a
                 href="dashboard.html"
                 class="logo"
             >
 
-                <span class="logo-icon">
+                <span>
                     ✈️
                 </span>
 
@@ -49,7 +49,7 @@
             </a>
 
 
-            <nav class="nav">
+            <nav class="nav-links">
 
                 <a href="dashboard.html">
                     Dashboard
@@ -65,6 +65,10 @@
 
                 <a href="history.html">
                     ประวัติ
+                </a>
+
+                <a href="favorites.html">
+                    ❤️ สถานที่โปรด
                 </a>
 
                 <a
@@ -89,7 +93,6 @@
 
         <div class="container">
 
-
             <div class="page-title">
 
                 <h1>
@@ -97,7 +100,7 @@
                 </h1>
 
                 <p>
-                    ข้อมูลผู้ใช้งาน WanderGo
+                    จัดการข้อมูลส่วนตัวของคุณ
                 </p>
 
             </div>
@@ -107,163 +110,127 @@
                  Profile Card
                  ================================= -->
 
-            <section
-                class="card"
-                style="
-                    max-width:700px;
-                    margin:0 auto;
-                "
-            >
+            <section class="card profile-card">
 
-                <div
-                    style="
-                        text-align:center;
-                        margin-bottom:25px;
-                    "
-                >
 
-                    <div
-                        style="
-                            width:100px;
-                            height:100px;
-                            border-radius:50%;
-                            background:#eaf7ff;
-                            display:flex;
-                            align-items:center;
-                            justify-content:center;
-                            font-size:50px;
-                            margin:0 auto 15px;
-                        "
-                    >
+                <!-- Avatar -->
+
+                <div class="profile-header">
+
+                    <div class="profile-avatar">
                         👤
                     </div>
 
-
-                    <h2>
-                        ข้อมูลส่วนตัว
+                    <h2 id="profileName">
+                        ผู้ใช้งาน
                     </h2>
 
-                </div>
-
-
-                <!-- Name -->
-
-                <div
-                    style="
-                        margin-bottom:20px;
-                    "
-                >
-
-                    <label
-                        style="
-                            display:block;
-                            font-weight:bold;
-                            margin-bottom:8px;
-                        "
-                    >
-                        👤 ชื่อผู้ใช้งาน
-                    </label>
-
-
-                    <div
-                        id="userName"
-                        style="
-                            padding:14px;
-                            background:#f7fafc;
-                            border-radius:10px;
-                        "
-                    >
+                    <p id="profileEmail">
                         -
-                    </div>
+                    </p>
 
                 </div>
 
 
-                <!-- Email -->
+                <!-- =================================
+                     Alert
+                     ================================= -->
 
                 <div
-                    style="
-                        margin-bottom:20px;
-                    "
-                >
-
-                    <label
-                        style="
-                            display:block;
-                            font-weight:bold;
-                            margin-bottom:8px;
-                        "
-                    >
-                        📧 อีเมล
-                    </label>
+                    id="profileAlert"
+                    class="alert alert-success"
+                    style="display:none;"
+                ></div>
 
 
-                    <div
-                        id="userEmail"
-                        style="
-                            padding:14px;
-                            background:#f7fafc;
-                            border-radius:10px;
-                        "
-                    >
-                        -
+                <!-- =================================
+                     Form
+                     ================================= -->
+
+                <form id="profileForm">
+
+
+                    <!-- Name -->
+
+                    <div class="form-group">
+
+                        <label for="name">
+                            ชื่อ
+                        </label>
+
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            placeholder="กรอกชื่อของคุณ"
+                            required
+                        >
+
                     </div>
 
-                </div>
 
+                    <!-- Email -->
 
-                <!-- Account -->
+                    <div class="form-group">
 
-                <div
-                    style="
-                        margin-bottom:25px;
-                    "
-                >
+                        <label for="email">
+                            อีเมล
+                        </label>
 
-                    <label
-                        style="
-                            display:block;
-                            font-weight:bold;
-                            margin-bottom:8px;
-                        "
-                    >
-                        ✈️ บริการ
-                    </label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="example@email.com"
+                            required
+                        >
 
-
-                    <div
-                        style="
-                            padding:14px;
-                            background:#f7fafc;
-                            border-radius:10px;
-                        "
-                    >
-                        WanderGo
                     </div>
 
-                </div>
+
+                    <!-- Bio -->
+
+                    <div class="form-group">
+
+                        <label for="bio">
+                            เกี่ยวกับฉัน
+                        </label>
+
+                        <textarea
+                            id="bio"
+                            name="bio"
+                            placeholder="เล่าเกี่ยวกับตัวคุณสักเล็กน้อย..."
+                        ></textarea>
+
+                    </div>
 
 
-                <!-- Logout -->
+                    <!-- Buttons -->
 
-                <div
-                    style="
-                        text-align:center;
-                    "
-                >
+                    <div class="trip-actions">
 
-                    <button
-                        type="button"
-                        id="logoutButton"
-                        class="btn btn-danger"
-                    >
-                        🚪 ออกจากระบบ
-                    </button>
+                        <button
+                            type="submit"
+                            class="btn btn-primary"
+                        >
+                            💾 บันทึกข้อมูล
+                        </button>
 
-                </div>
+
+                        <button
+                            type="button"
+                            class="btn btn-danger"
+                            id="logoutButton"
+                        >
+                            🚪 ออกจากระบบ
+                        </button>
+
+                    </div>
+
+
+                </form>
 
             </section>
-
 
         </div>
 
@@ -285,7 +252,7 @@
 
 
 <!-- =====================================
-     JavaScript
+     Main JavaScript
      ===================================== -->
 
 <script src="js/script.js"></script>
@@ -307,10 +274,39 @@
 
 
     /* =====================================
-       Get Current User
+       Elements
        ===================================== */
 
-    function renderProfile() {
+    const nameInput =
+        document.getElementById("name");
+
+    const emailInput =
+        document.getElementById("email");
+
+    const bioInput =
+        document.getElementById("bio");
+
+    const profileName =
+        document.getElementById("profileName");
+
+    const profileEmail =
+        document.getElementById("profileEmail");
+
+    const profileForm =
+        document.getElementById("profileForm");
+
+    const profileAlert =
+        document.getElementById("profileAlert");
+
+    const logoutButton =
+        document.getElementById("logoutButton");
+
+
+    /* =====================================
+       Load User
+       ===================================== */
+
+    function loadProfile() {
 
         const user =
             getCurrentUser();
@@ -323,27 +319,122 @@
         }
 
 
-        document.getElementById(
-            "userName"
-        ).textContent =
-            user.name || "-";
+        nameInput.value =
+            user.name || "";
 
 
-        document.getElementById(
-            "userEmail"
-        ).textContent =
+        emailInput.value =
+            user.email || "";
+
+
+        bioInput.value =
+            user.bio || "";
+
+
+        profileName.textContent =
+            user.name || "ผู้ใช้งาน";
+
+
+        profileEmail.textContent =
             user.email || "-";
 
     }
 
 
     /* =====================================
+       Show Alert
+       ===================================== */
+
+    function showProfileAlert(
+        message
+    ) {
+
+        profileAlert.textContent =
+            message;
+
+        profileAlert.style.display =
+            "block";
+
+
+        setTimeout(
+            function() {
+
+                profileAlert.style.display =
+                    "none";
+
+            },
+            2500
+        );
+
+    }
+
+
+    /* =====================================
+       Save Profile
+       ===================================== */
+
+    profileForm.addEventListener(
+        "submit",
+        function(event) {
+
+            event.preventDefault();
+
+
+            const currentUser =
+                getCurrentUser();
+
+
+            if (!currentUser) {
+
+                return;
+
+            }
+
+
+            const updatedUser = {
+
+                ...currentUser,
+
+                name:
+                    nameInput.value.trim(),
+
+                email:
+                    emailInput.value.trim(),
+
+                bio:
+                    bioInput.value.trim()
+
+            };
+
+
+            saveCurrentUser(
+                updatedUser
+            );
+
+
+            profileName.textContent =
+                updatedUser.name ||
+                "ผู้ใช้งาน";
+
+
+            profileEmail.textContent =
+                updatedUser.email ||
+                "-";
+
+
+            showProfileAlert(
+                "บันทึกข้อมูลเรียบร้อยแล้ว ✓"
+            );
+
+        }
+    );
+
+
+    /* =====================================
        Logout
        ===================================== */
 
-    document.getElementById(
-        "logoutButton"
-    ).addEventListener(
+    logoutButton.addEventListener(
         "click",
         function() {
 
@@ -362,10 +453,6 @@
 
             logout();
 
-
-            window.location.href =
-                "index.html";
-
         }
     );
 
@@ -374,7 +461,7 @@
        Start
        ===================================== */
 
-    renderProfile();
+    loadProfile();
 
 </script>
 
