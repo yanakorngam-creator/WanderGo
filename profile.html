@@ -114,31 +114,111 @@
             <section class="card profile-card">
 
 
-                <div class="profile-header">
+                <!-- =================================
+                     Normal Profile View
+                     ================================= -->
 
-                    <div class="profile-avatar">
-                        👤
+                <div id="profileView">
+
+
+                    <div class="profile-header">
+
+                        <div class="profile-avatar">
+                            👤
+                        </div>
+
+                        <h2 id="profileName">
+                            ผู้ใช้งาน
+                        </h2>
+
+                        <p id="profileEmail">
+                            -
+                        </p>
+
                     </div>
 
-                    <h2 id="profileName">
-                        ผู้ใช้งาน
-                    </h2>
 
-                    <p id="profileEmail">
-                        -
-                    </p>
+                    <!-- About Me -->
+
+                    <div
+                        id="profileBioBox"
+                        style="
+                            margin-top: 20px;
+                            text-align: center;
+                        "
+                    >
+
+                        <p
+                            style="
+                                margin-bottom: 6px;
+                                font-weight: 600;
+                            "
+                        >
+                            📝 เกี่ยวกับฉัน
+                        </p>
+
+                        <p
+                            id="profileBio"
+                            style="
+                                color: #718592;
+                                margin: 0;
+                            "
+                        >
+                            ยังไม่มีข้อมูล
+                        </p>
+
+                    </div>
+
+
+                    <!-- Edit Button -->
+
+                    <div
+                        style="
+                            margin-top: 25px;
+                            text-align: center;
+                        "
+                    >
+
+                        <button
+                            type="button"
+                            class="btn btn-primary"
+                            id="editProfileButton"
+                        >
+                            ✏️ แก้ไขโปรไฟล์
+                        </button>
+
+                    </div>
 
                 </div>
 
 
                 <!-- =================================
-                     Edit Form
+                     Edit Profile Section
                      ================================= -->
 
                 <div
                     id="editSection"
-                    style="display: block;"
+                    style="display: none;"
                 >
+
+                    <div class="profile-header">
+
+                        <div class="profile-avatar">
+                            👤
+                        </div>
+
+                        <h2>
+                            ✏️ แก้ไขโปรไฟล์
+                        </h2>
+
+                        <p>
+                            แก้ไขข้อมูลส่วนตัวของคุณ
+                        </p>
+
+                    </div>
+
+
+                    <!-- Name -->
 
                     <div class="form-group">
 
@@ -155,6 +235,8 @@
                     </div>
 
 
+                    <!-- Email -->
+
                     <div class="form-group">
 
                         <label for="email">
@@ -170,6 +252,8 @@
                     </div>
 
 
+                    <!-- Bio -->
+
                     <div class="form-group">
 
                         <label for="bio">
@@ -184,13 +268,36 @@
                     </div>
 
 
-                    <button
-                        type="button"
-                        class="btn btn-primary btn-full"
-                        id="saveProfileButton"
+                    <!-- Buttons -->
+
+                    <div
+                        style="
+                            display: flex;
+                            gap: 12px;
+                            margin-top: 20px;
+                        "
                     >
-                        💾 บันทึกการแก้ไข
-                    </button>
+
+                        <button
+                            type="button"
+                            class="btn btn-primary"
+                            id="saveProfileButton"
+                            style="flex: 1;"
+                        >
+                            💾 บันทึกการแก้ไข
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            id="cancelEditButton"
+                            style="flex: 1;"
+                        >
+                            ยกเลิก
+                        </button>
+
+                    </div>
 
                 </div>
 
@@ -201,7 +308,7 @@
 
                 <div
                     style="
-                        margin-top: 20px;
+                        margin-top: 25px;
                         text-align: center;
                     "
                 >
@@ -264,25 +371,71 @@
        Get Elements
        ===================================== */
 
+    const profileView =
+        document.getElementById(
+            "profileView"
+        );
+
+
+    const editSection =
+        document.getElementById(
+            "editSection"
+        );
+
+
+    const editProfileButton =
+        document.getElementById(
+            "editProfileButton"
+        );
+
+
+    const cancelEditButton =
+        document.getElementById(
+            "cancelEditButton"
+        );
+
+
     const nameInput =
-        document.getElementById("name");
+        document.getElementById(
+            "name"
+        );
+
 
     const emailInput =
-        document.getElementById("email");
+        document.getElementById(
+            "email"
+        );
+
 
     const bioInput =
-        document.getElementById("bio");
+        document.getElementById(
+            "bio"
+        );
+
 
     const profileName =
-        document.getElementById("profileName");
+        document.getElementById(
+            "profileName"
+        );
+
 
     const profileEmail =
-        document.getElementById("profileEmail");
+        document.getElementById(
+            "profileEmail"
+        );
+
+
+    const profileBio =
+        document.getElementById(
+            "profileBio"
+        );
+
 
     const saveButton =
         document.getElementById(
             "saveProfileButton"
         );
+
 
     const logoutButton =
         document.getElementById(
@@ -307,6 +460,8 @@
         }
 
 
+        /* Fill edit form */
+
         nameInput.value =
             user.name || "";
 
@@ -319,6 +474,8 @@
             user.bio || "";
 
 
+        /* Show profile information */
+
         profileName.textContent =
             user.name ||
             "ผู้ใช้งาน";
@@ -328,7 +485,88 @@
             user.email ||
             "-";
 
+
+        profileBio.textContent =
+            user.bio ||
+            "ยังไม่มีข้อมูล";
+
     }
+
+
+    /* =====================================
+       Open Edit Mode
+       ===================================== */
+
+    editProfileButton.addEventListener(
+        "click",
+        function() {
+
+            const user =
+                getCurrentUser();
+
+
+            if (!user) {
+
+                return;
+
+            }
+
+
+            /* Put latest data into form */
+
+            nameInput.value =
+                user.name || "";
+
+
+            emailInput.value =
+                user.email || "";
+
+
+            bioInput.value =
+                user.bio || "";
+
+
+            /* Hide normal view */
+
+            profileView.style.display =
+                "none";
+
+
+            /* Show edit form */
+
+            editSection.style.display =
+                "block";
+
+        }
+    );
+
+
+    /* =====================================
+       Cancel Edit
+       ===================================== */
+
+    cancelEditButton.addEventListener(
+        "click",
+        function() {
+
+            /* Hide edit form */
+
+            editSection.style.display =
+                "none";
+
+
+            /* Show normal profile */
+
+            profileView.style.display =
+                "block";
+
+
+            /* Reset form */
+
+            loadProfile();
+
+        }
+    );
 
 
     /* =====================================
@@ -362,16 +600,22 @@
                 bioInput.value.trim();
 
 
+            /* Validate name */
+
             if (!name) {
 
                 alert(
                     "กรุณากรอกชื่อผู้ใช้งาน"
                 );
 
+                nameInput.focus();
+
                 return;
 
             }
 
+
+            /* Validate email */
 
             if (!email) {
 
@@ -379,10 +623,14 @@
                     "กรุณากรอกอีเมล"
                 );
 
+                emailInput.focus();
+
                 return;
 
             }
 
+
+            /* Create updated user */
 
             const updatedUser = {
 
@@ -400,10 +648,14 @@
             };
 
 
+            /* Save to localStorage */
+
             saveCurrentUser(
                 updatedUser
             );
 
+
+            /* Update normal profile */
 
             profileName.textContent =
                 name;
@@ -412,6 +664,25 @@
             profileEmail.textContent =
                 email;
 
+
+            profileBio.textContent =
+                bio ||
+                "ยังไม่มีข้อมูล";
+
+
+            /* Hide edit form */
+
+            editSection.style.display =
+                "none";
+
+
+            /* Show normal profile */
+
+            profileView.style.display =
+                "block";
+
+
+            /* Success message */
 
             alert(
                 "บันทึกข้อมูลเรียบร้อยแล้ว ✓"
