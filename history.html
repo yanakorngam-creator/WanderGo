@@ -241,7 +241,11 @@
                    --------------------------------- */
 
                 const places =
-                    trip.places || [];
+                    Array.isArray(
+                        trip.places
+                    )
+                        ? trip.places
+                        : [];
 
 
                 /* ---------------------------------
@@ -276,16 +280,84 @@
                             .map(
                                 function(place) {
 
+
+                                    /* -----------------------------
+                                       Favorite Check
+                                       ----------------------------- */
+
+                                    const favorite =
+                                        isFavorite(
+                                            place.id
+                                        );
+
+
                                     return `
 
-                                        <span class="place-tag">
+                                        <div
+                                            style="
+                                                display:flex;
+                                                align-items:center;
+                                                gap:8px;
+                                                margin-bottom:8px;
+                                                flex-wrap:wrap;
+                                            "
+                                        >
 
-                                            📍
-                                            ${escapeHTML(
-                                                place.name
-                                            )}
 
-                                        </span>
+                                            <!-- Place -->
+
+                                            <span
+                                                class="place-tag"
+                                            >
+
+                                                📍
+
+                                                ${escapeHTML(
+                                                    place.name
+                                                )}
+
+                                            </span>
+
+
+                                            <!-- Favorite Button -->
+
+                                            <button
+                                                type="button"
+                                                class="btn ${
+                                                    favorite
+                                                        ? "btn-primary"
+                                                        : "btn-secondary"
+                                                }"
+                                                style="
+                                                    padding:6px 12px;
+                                                    min-width:48px;
+                                                    line-height:1;
+                                                "
+                                                onclick="togglePlaceFavorite(
+                                                    '${escapeHTML(
+                                                        place.id
+                                                    )}',
+                                                    '${escapeHTML(
+                                                        trip.id
+                                                    )}'
+                                                )"
+                                                title="${
+                                                    favorite
+                                                        ? "นำออกจากสถานที่โปรด"
+                                                        : "เพิ่มสถานที่โปรด"
+                                                }"
+                                            >
+
+                                                ${
+                                                    favorite
+                                                        ? "❤️"
+                                                        : "🤍"
+                                                }
+
+                                            </button>
+
+
+                                        </div>
 
                                     `;
 
@@ -295,7 +367,9 @@
 
                         : `
 
-                            <span class="place-tag">
+                            <span
+                                class="place-tag"
+                            >
 
                                 ยังไม่ได้เพิ่มสถานที่
 
@@ -325,7 +399,9 @@
                                     ? `
 
                                         <img
-                                            src="${escapeHTML(image)}"
+                                            src="${escapeHTML(
+                                                image
+                                            )}"
                                             class="trip-image"
                                             alt="${escapeHTML(
                                                 trip.tripName
@@ -403,10 +479,14 @@
                                  Dates
                                  ================================= -->
 
-                            <div class="trip-meta">
+                            <div
+                                class="trip-meta"
+                            >
 
 
-                                <span class="place-tag">
+                                <span
+                                    class="place-tag"
+                                >
 
                                     📅
 
@@ -417,7 +497,9 @@
                                 </span>
 
 
-                                <span class="place-tag">
+                                <span
+                                    class="place-tag"
+                                >
 
                                     ถึง
 
@@ -435,9 +517,29 @@
                                  Places
                                  ================================= -->
 
-                            <div class="trip-meta">
+                            <div
+                                style="
+                                    margin-top:10px;
+                                "
+                            >
 
-                                ${placesHTML}
+                                <div
+                                    style="
+                                        margin-bottom:8px;
+                                        font-weight:600;
+                                    "
+                                >
+
+                                    📍 สถานที่ในทริป
+
+                                </div>
+
+
+                                <div>
+
+                                    ${placesHTML}
+
+                                </div>
 
                             </div>
 
@@ -446,7 +548,9 @@
                                  Budget
                                  ================================= -->
 
-                            <div class="trip-cost">
+                            <div
+                                class="trip-cost"
+                            >
 
                                 💰
 
@@ -491,7 +595,9 @@
                                  Actions
                                  ================================= -->
 
-                            <div class="trip-actions">
+                            <div
+                                class="trip-actions"
+                            >
 
 
                                 <!-- Edit -->
@@ -553,6 +659,119 @@
 
 
     /* =====================================
+       Toggle Favorite Place
+       ===================================== */
+
+    function togglePlaceFavorite(
+        placeId,
+        tripId
+    ) {
+
+        /* ---------------------------------
+           Get Trip
+           --------------------------------- */
+
+        const trip =
+            getTripById(
+                tripId
+            );
+
+
+        if (!trip) {
+
+            return;
+
+        }
+
+
+        /* ---------------------------------
+           Get Places
+           --------------------------------- */
+
+        const places =
+            Array.isArray(
+                trip.places
+            )
+                ? trip.places
+                : [];
+
+
+        /* ---------------------------------
+           Find Place
+           --------------------------------- */
+
+        const place =
+            places.find(
+                function(item) {
+
+                    return (
+                        String(item.id) ===
+                        String(placeId)
+                    );
+
+                }
+            );
+
+
+        if (!place) {
+
+            return;
+
+        }
+
+
+        /* ---------------------------------
+           Toggle Favorite
+           --------------------------------- */
+
+        const favorites =
+            toggleFavorite(
+                place
+            );
+
+
+        /* ---------------------------------
+           Toast
+           --------------------------------- */
+
+        const added =
+            favorites.some(
+                function(item) {
+
+                    return (
+                        String(item.id) ===
+                        String(place.id)
+                    );
+
+                }
+            );
+
+
+        if (added) {
+
+            showToast(
+                "❤️ เพิ่มสถานที่โปรดแล้ว"
+            );
+
+        } else {
+
+            showToast(
+                "🤍 นำออกจากสถานที่โปรดแล้ว"
+            );
+
+        }
+
+
+        /* ---------------------------------
+           Refresh
+           --------------------------------- */
+
+        renderTrips();
+
+    }
+
+
+    /* =====================================
        Delete Trip
        ===================================== */
 
@@ -591,7 +810,7 @@
 
 
         /* ---------------------------------
-           Remove
+           Remove Trip
            --------------------------------- */
 
         removeTrip(
