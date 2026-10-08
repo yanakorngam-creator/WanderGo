@@ -26,19 +26,19 @@
 
 
     <!-- =====================================
-         Navigation
+         Header
          ===================================== -->
 
-    <header class="navbar">
+    <header class="header">
 
-        <div class="nav-container">
+        <div class="container header-inner">
 
             <a
                 href="dashboard.html"
                 class="logo"
             >
 
-                <span>
+                <span class="logo-icon">
                     ✈️
                 </span>
 
@@ -49,7 +49,7 @@
             </a>
 
 
-            <nav class="nav-links">
+            <nav class="nav">
 
                 <a href="dashboard.html">
                     Dashboard
@@ -93,6 +93,7 @@
 
         <div class="container">
 
+
             <div class="page-title">
 
                 <h1>
@@ -113,8 +114,6 @@
             <section class="card profile-card">
 
 
-                <!-- Avatar -->
-
                 <div class="profile-header">
 
                     <div class="profile-avatar">
@@ -133,102 +132,90 @@
 
 
                 <!-- =================================
-                     Alert
+                     Edit Form
                      ================================= -->
 
                 <div
-                    id="profileAlert"
-                    class="alert alert-success"
-                    style="display:none;"
-                ></div>
-
-
-                <!-- =================================
-                     Form
-                     ================================= -->
-
-                <form id="profileForm">
-
-
-                    <!-- Name -->
+                    id="editSection"
+                    style="display: block;"
+                >
 
                     <div class="form-group">
 
                         <label for="name">
-                            ชื่อ
+                            👤 ชื่อผู้ใช้งาน
                         </label>
 
                         <input
                             type="text"
                             id="name"
-                            name="name"
-                            placeholder="กรอกชื่อของคุณ"
-                            required
+                            placeholder="กรอกชื่อผู้ใช้งาน"
                         >
 
                     </div>
 
 
-                    <!-- Email -->
-
                     <div class="form-group">
 
                         <label for="email">
-                            อีเมล
+                            📧 อีเมล
                         </label>
 
                         <input
                             type="email"
                             id="email"
-                            name="email"
-                            placeholder="example@email.com"
-                            required
+                            placeholder="กรอกอีเมล"
                         >
 
                     </div>
 
 
-                    <!-- Bio -->
-
                     <div class="form-group">
 
                         <label for="bio">
-                            เกี่ยวกับฉัน
+                            📝 เกี่ยวกับฉัน
                         </label>
 
                         <textarea
                             id="bio"
-                            name="bio"
-                            placeholder="เล่าเกี่ยวกับตัวคุณสักเล็กน้อย..."
+                            placeholder="เขียนข้อมูลเกี่ยวกับตัวคุณ..."
                         ></textarea>
 
                     </div>
 
 
-                    <!-- Buttons -->
+                    <button
+                        type="button"
+                        class="btn btn-primary btn-full"
+                        id="saveProfileButton"
+                    >
+                        💾 บันทึกการแก้ไข
+                    </button>
 
-                    <div class="trip-actions">
-
-                        <button
-                            type="submit"
-                            class="btn btn-primary"
-                        >
-                            💾 บันทึกข้อมูล
-                        </button>
-
-
-                        <button
-                            type="button"
-                            class="btn btn-danger"
-                            id="logoutButton"
-                        >
-                            🚪 ออกจากระบบ
-                        </button>
-
-                    </div>
+                </div>
 
 
-                </form>
+                <!-- =================================
+                     Logout
+                     ================================= -->
+
+                <div
+                    style="
+                        margin-top: 20px;
+                        text-align: center;
+                    "
+                >
+
+                    <button
+                        type="button"
+                        class="btn btn-danger"
+                        id="logoutButton"
+                    >
+                        🚪 ออกจากระบบ
+                    </button>
+
+                </div>
+
 
             </section>
 
@@ -252,7 +239,7 @@
 
 
 <!-- =====================================
-     Main JavaScript
+     JavaScript
      ===================================== -->
 
 <script src="js/script.js"></script>
@@ -274,7 +261,7 @@
 
 
     /* =====================================
-       Elements
+       Get Elements
        ===================================== */
 
     const nameInput =
@@ -292,18 +279,19 @@
     const profileEmail =
         document.getElementById("profileEmail");
 
-    const profileForm =
-        document.getElementById("profileForm");
-
-    const profileAlert =
-        document.getElementById("profileAlert");
+    const saveButton =
+        document.getElementById(
+            "saveProfileButton"
+        );
 
     const logoutButton =
-        document.getElementById("logoutButton");
+        document.getElementById(
+            "logoutButton"
+        );
 
 
     /* =====================================
-       Load User
+       Load Profile
        ===================================== */
 
     function loadProfile() {
@@ -332,39 +320,13 @@
 
 
         profileName.textContent =
-            user.name || "ผู้ใช้งาน";
+            user.name ||
+            "ผู้ใช้งาน";
 
 
         profileEmail.textContent =
-            user.email || "-";
-
-    }
-
-
-    /* =====================================
-       Show Alert
-       ===================================== */
-
-    function showProfileAlert(
-        message
-    ) {
-
-        profileAlert.textContent =
-            message;
-
-        profileAlert.style.display =
-            "block";
-
-
-        setTimeout(
-            function() {
-
-                profileAlert.style.display =
-                    "none";
-
-            },
-            2500
-        );
+            user.email ||
+            "-";
 
     }
 
@@ -373,18 +335,49 @@
        Save Profile
        ===================================== */
 
-    profileForm.addEventListener(
-        "submit",
-        function(event) {
+    saveButton.addEventListener(
+        "click",
+        function() {
 
-            event.preventDefault();
-
-
-            const currentUser =
+            const user =
                 getCurrentUser();
 
 
-            if (!currentUser) {
+            if (!user) {
+
+                return;
+
+            }
+
+
+            const name =
+                nameInput.value.trim();
+
+
+            const email =
+                emailInput.value.trim();
+
+
+            const bio =
+                bioInput.value.trim();
+
+
+            if (!name) {
+
+                alert(
+                    "กรุณากรอกชื่อผู้ใช้งาน"
+                );
+
+                return;
+
+            }
+
+
+            if (!email) {
+
+                alert(
+                    "กรุณากรอกอีเมล"
+                );
 
                 return;
 
@@ -393,16 +386,16 @@
 
             const updatedUser = {
 
-                ...currentUser,
+                ...user,
 
                 name:
-                    nameInput.value.trim(),
+                    name,
 
                 email:
-                    emailInput.value.trim(),
+                    email,
 
                 bio:
-                    bioInput.value.trim()
+                    bio
 
             };
 
@@ -413,16 +406,14 @@
 
 
             profileName.textContent =
-                updatedUser.name ||
-                "ผู้ใช้งาน";
+                name;
 
 
             profileEmail.textContent =
-                updatedUser.email ||
-                "-";
+                email;
 
 
-            showProfileAlert(
+            alert(
                 "บันทึกข้อมูลเรียบร้อยแล้ว ✓"
             );
 
