@@ -67,10 +67,6 @@
                     ประวัติ
                 </a>
 
-                <a href="favorites.html">
-                    ❤️ สถานที่โปรด
-                </a>
-
                 <a
                     href="profile.html"
                     class="active"
@@ -112,6 +108,31 @@
                  ================================= -->
 
             <section class="card profile-card">
+
+
+                <!-- =================================
+                     Favorite Places Button
+                     ================================= -->
+
+                <div
+                    style="
+                        margin-bottom: 25px;
+                        text-align: center;
+                    "
+                >
+
+                    <a
+                        href="favorites.html"
+                        class="btn btn-primary"
+                        style="
+                            display: inline-block;
+                            text-decoration: none;
+                        "
+                    >
+                        ❤️ สถานที่โปรด
+                    </a>
+
+                </div>
 
 
                 <!-- =================================
@@ -460,8 +481,6 @@
         }
 
 
-        /* Fill edit form */
-
         nameInput.value =
             user.name || "";
 
@@ -473,8 +492,6 @@
         bioInput.value =
             user.bio || "";
 
-
-        /* Show profile information */
 
         profileName.textContent =
             user.name ||
@@ -512,8 +529,6 @@
             }
 
 
-            /* Put latest data into form */
-
             nameInput.value =
                 user.name || "";
 
@@ -526,13 +541,9 @@
                 user.bio || "";
 
 
-            /* Hide normal view */
-
             profileView.style.display =
                 "none";
 
-
-            /* Show edit form */
 
             editSection.style.display =
                 "block";
@@ -549,19 +560,13 @@
         "click",
         function() {
 
-            /* Hide edit form */
-
             editSection.style.display =
                 "none";
 
 
-            /* Show normal profile */
-
             profileView.style.display =
                 "block";
 
-
-            /* Reset form */
 
             loadProfile();
 
@@ -600,8 +605,6 @@
                 bioInput.value.trim();
 
 
-            /* Validate name */
-
             if (!name) {
 
                 alert(
@@ -614,8 +617,6 @@
 
             }
 
-
-            /* Validate email */
 
             if (!email) {
 
@@ -630,32 +631,23 @@
             }
 
 
-            /* Create updated user */
-
             const updatedUser = {
 
                 ...user,
 
-                name:
-                    name,
+                name: name,
 
-                email:
-                    email,
+                email: email,
 
-                bio:
-                    bio
+                bio: bio
 
             };
 
-
-            /* Save to localStorage */
 
             saveCurrentUser(
                 updatedUser
             );
 
-
-            /* Update normal profile */
 
             profileName.textContent =
                 name;
@@ -670,19 +662,13 @@
                 "ยังไม่มีข้อมูล";
 
 
-            /* Hide edit form */
-
             editSection.style.display =
                 "none";
 
 
-            /* Show normal profile */
-
             profileView.style.display =
                 "block";
 
-
-            /* Success message */
 
             alert(
                 "บันทึกข้อมูลเรียบร้อยแล้ว ✓"
