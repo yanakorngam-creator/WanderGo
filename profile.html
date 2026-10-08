@@ -90,6 +90,8 @@
         <div class="container">
 
 
+            <!-- Page Title -->
+
             <div class="page-title">
 
                 <h1>
@@ -108,31 +110,6 @@
                  ================================= -->
 
             <section class="card profile-card">
-
-
-                <!-- =================================
-                     Favorite Places Button
-                     ================================= -->
-
-                <div
-                    style="
-                        margin-bottom: 25px;
-                        text-align: center;
-                    "
-                >
-
-                    <a
-                        href="favorites.html"
-                        class="btn btn-primary"
-                        style="
-                            display: inline-block;
-                            text-decoration: none;
-                        "
-                    >
-                        ❤️ สถานที่โปรด
-                    </a>
-
-                </div>
 
 
                 <!-- =================================
@@ -605,6 +582,8 @@
                 bioInput.value.trim();
 
 
+            /* Validate name */
+
             if (!name) {
 
                 alert(
@@ -617,6 +596,8 @@
 
             }
 
+
+            /* Validate email */
 
             if (!email) {
 
@@ -631,6 +612,8 @@
             }
 
 
+            /* Updated user */
+
             const updatedUser = {
 
                 ...user,
@@ -644,10 +627,14 @@
             };
 
 
+            /* Save */
+
             saveCurrentUser(
                 updatedUser
             );
 
+
+            /* Update profile */
 
             profileName.textContent =
                 name;
@@ -662,6 +649,8 @@
                 "ยังไม่มีข้อมูล";
 
 
+            /* Back to profile */
+
             editSection.style.display =
                 "none";
 
@@ -669,6 +658,8 @@
             profileView.style.display =
                 "block";
 
+
+            /* Success */
 
             alert(
                 "บันทึกข้อมูลเรียบร้อยแล้ว ✓"
