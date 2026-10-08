@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>WanderGo - สถานที่โปรด</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="page">
+
+
+    <!-- =====================================
+         Header
+         ===================================== -->
+
+    <header class="header">
+
+        <div class="container header-inner">
+
+            <a
+                href="dashboard.html"
+                class="logo"
+            >
+
+                <span class="logo-icon">
+                    ✈️
+                </span>
+
+                <span>
+                    WanderGo
+                </span>
+
+            </a>
+
+
+            <nav class="nav">
+
+                <a href="dashboard.html">
+                    Dashboard
+                </a>
+
+                <a href="trip-planner.html">
+                    วางแผนทริป
+                </a>
+
+                <a href="budget.html">
+                    งบประมาณ
+                </a>
+
+                <a href="history.html">
+                    ประวัติ
+                </a>
+
+                <a href="profile.html">
+                    โปรไฟล์
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================
+         Main
+         ===================================== -->
+
+    <main class="main">
+
+        <div class="container">
+
+
+            <!-- =================================
+                 Page Title
+                 ================================= -->
+
+            <div class="page-title">
+
+                <h1>
+                    ❤️ สถานที่โปรด
+                </h1>
+
+                <p>
+                    สถานที่ที่คุณบันทึกไว้เป็นรายการโปรด
+                </p>
+
+            </div>
+
+
+            <!-- =================================
+                 Favorites Content
+                 ================================= -->
+
+            <section id="favoritesContent"></section>
+
+
+        </div>
+
+    </main>
+
+
+    <!-- =====================================
+         Footer
+         ===================================== -->
+
+    <footer class="footer">
+
+        WanderGo © 2026
+        <br>
+        วางแผนง่าย เที่ยวสนุก
+
+    </footer>
+
+
+</div>
+
+
+<!-- =====================================
+     JavaScript
+     ===================================== -->
+
+<script src="js/script.js"></script>
+
+
+<script>
+
+    /* =====================================
+       Login Check
+       ===================================== */
+
+    if (!requireLogin()) {
+
+        throw new Error(
+            "User is not logged in"
+        );
+
+    }
+
+
+    /* =====================================
+       Get Favorites
+       ===================================== */
+
+    function renderFavorites() {
+
+        const container =
+            document.getElementById(
+                "favoritesContent"
+            );
+
+
+        const favorites =
+            getFavorites();
+
+
+        /* =================================
+           No Favorites
+           ================================= */
+
+        if (favorites.length === 0) {
+
+            container.innerHTML = `
+
+                <div class="card">
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            ❤️
+                        </div>
+
+                        <h3>
+                            ยังไม่มีสถานที่โปรด
+                        </h3>
+
+                        <p>
+                            เมื่อคุณกด ❤️
+                            ที่สถานที่ที่ชอบ
+                            สถานที่นั้นจะปรากฏที่หน้านี้
+                        </p>
+
+                        <br>
+
+                        <a
+                            href="history.html"
+                            class="btn btn-primary"
+                        >
+                            📚 ดูประวัติการเดินทาง
+                        </a>
+
+                    </div>
+
+                </div>
+
+            `;
+
+            return;
+        }
+
+
+        /* =================================
+           Get Trips
+           ================================= */
+
+        const trips =
+            getTrips();
+
+
+        /* =================================
+           Render Favorites
+           ================================= */
+
+        container.innerHTML = `
+
+            <div class="card">
+
+                <div
+                    style="
+                        display:flex;
+                        justify-content:space-between;
+                        align-items:center;
+                        gap:15px;
+                        flex-wrap:wrap;
+                    "
+                >
+
+                    <div>
+
+                        <h2>
+                            ❤️ รายการสถานที่โปรด
+                        </h2>
+
+                        <p
+                            style="
+                                margin-top:6px;
+                                color:#718592;
+                            "
+                        >
+                            ทั้งหมด
+                            <strong>
+                                ${favorites.length}
+                            </strong>
+                            สถานที่
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="trip-list"
+                    style="margin-top:20px;"
+                >
+
+                    ${
+                        favorites
+                            .map(
+                                function(place) {
+
+
+                                    /* -----------------------------
+                                       Find Trip
+                                       ----------------------------- */
+
+                                    let sourceTrip = null;
+
+
+                                    for (
+                                        let i = 0;
+                                        i < trips.length;
+                                        i++
+                                    ) {
+
+                                        const trip =
+                                            trips[i];
+
+
+                                        const places =
+                                            Array.isArray(
+                                                trip.places
+                                            )
+                                                ? trip.places
+                                                : [];
+
+
+                                        const found =
+                                            places.find(
+                                                function(item) {
+
+                                                    return (
+                                                        String(
+                                                            item.id
+                                                        ) ===
+                                                        String(
+                                                            place.id
+                                                        )
+                                                    );
+
+                                                }
+                                            );
+
+
+                                        if (found) {
+
+                                            sourceTrip =
+                                                trip;
+
+                                            break;
+
+                                        }
+
+                                    }
+
+
+                                    /* -----------------------------
+                                       Image
+                                       ----------------------------- */
+
+                                    const imageHTML =
+                                        place.image
+
+                                            ? `
+
+                                                <img
+                                                    src="${escapeHTML(
+                                                        place.image
+                                                    )}"
+                                                    alt="${escapeHTML(
+                                                        place.name
+                                                    )}"
+                                                    style="
+                                                        width:100%;
+                                                        height:100%;
+                                                        object-fit:cover;
+                                                    "
+                                                >
+
+                                            `
+
+                                            : `
+
+                                                <div
+                                                    style="
+                                                        width:100%;
+                                                        height:100%;
+                                                        display:flex;
+                                                        align-items:center;
+                                                        justify-content:center;
+                                                        font-size:50px;
+                                                        background:#eaf7ff;
+                                                    "
+                                                >
+                                                    📍
+                                                </div>
+
+                                            `;
+
+
+                                    /* -----------------------------
+                                       Source Trip
+                                       ----------------------------- */
+
+                                    const tripHTML =
+                                        sourceTrip
+
+                                            ? `
+
+                                                <div
+                                                    style="
+                                                        margin-top:8px;
+                                                        color:#718592;
+                                                        font-size:14px;
+                                                    "
+                                                >
+                                                    🗺️
+                                                    ${escapeHTML(
+                                                        sourceTrip.tripName
+                                                    )}
+
+                                                    ${
+                                                        sourceTrip.destination
+                                                            ? " · " +
+                                                              escapeHTML(
+                                                                  sourceTrip.destination
+                                                              )
+                                                            : ""
+                                                    }
+
+                                                </div>
+
+                                            `
+
+                                            : `
+
+                                                <div
+                                                    style="
+                                                        margin-top:8px;
+                                                        color:#718592;
+                                                        font-size:14px;
+                                                    "
+                                                >
+                                                    🗺️
+                                                    ไม่พบข้อมูลทริปต้นทาง
+                                                </div>
+
+                                            `;
+
+
+                                    /* -----------------------------
+                                       Trip Link
+                                       ----------------------------- */
+
+                                    const tripLink =
+                                        sourceTrip
+
+                                            ? `
+
+                                                <a
+                                                    href="history.html"
+                                                    class="btn btn-secondary"
+                                                >
+                                                    📚 ดูทริป
+                                                </a>
+
+                                            `
+
+                                            : "";
+
+
+                                    return `
+
+                                        <div
+                                            class="trip-card"
+                                            style="
+                                                position:relative;
+                                            "
+                                        >
+
+
+                                            <!-- Image -->
+
+                                            <div>
+
+                                                <div
+                                                    class="trip-image"
+                                                    style="
+                                                        background:#eaf7ff;
+                                                        overflow:hidden;
+                                                        display:flex;
+                                                        align-items:center;
+                                                        justify-content:center;
+                                                    "
+                                                >
+
+                                                    ${imageHTML}
+
+                                                </div>
+
+                                            </div>
+
+
+                                            <!-- Content -->
+
+                                            <div
+                                                class="trip-content"
+                                            >
+
+                                                <div
+                                                    style="
+                                                        display:flex;
+                                                        justify-content:space-between;
+                                                        align-items:flex-start;
+                                                        gap:15px;
+                                                    "
+                                                >
+
+                                                    <div>
+
+                                                        <h3>
+                                                            ${escapeHTML(
+                                                                place.name ||
+                                                                "สถานที่โปรด"
+                                                            )}
+                                                        </h3>
+
+                                                        ${tripHTML}
+
+                                                    </div>
+
+
+                                                    <div
+                                                        style="
+                                                            font-size:28px;
+                                                        "
+                                                    >
+                                                        ❤️
+                                                    </div>
+
+                                                </div>
+
+
+                                                <!-- Actions -->
+
+                                                <div
+                                                    class="trip-actions"
+                                                    style="
+                                                        margin-top:15px;
+                                                    "
+                                                >
+
+                                                    ${tripLink}
+
+
+                                                    <button
+                                                        type="button"
+                                                        class="btn btn-danger"
+                                                        onclick="removeFavorite('${escapeHTML(
+                                                            String(
+                                                                place.id
+                                                            )
+                                                        )}')"
+                                                    >
+                                                        🗑️ ลบออก
+                                                    </button>
+
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+
+                                    `;
+
+                                }
+                            )
+                            .join("")
+                    }
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================
+                 Back Button
+                 ================================= -->
+
+            <div
+                style="
+                    margin-top:20px;
+                "
+            >
+
+                <a
+                    href="dashboard.html"
+                    class="btn btn-secondary"
+                >
+                    🏠 กลับ Dashboard
+                </a>
+
+            </div>
+
+        `;
+
+    }
+
+
+    /* =====================================
+       Remove Favorite
+       ===================================== */
+
+    function removeFavorite(
+        placeId
+    ) {
+
+        const favorites =
+            getFavorites();
+
+
+        const index =
+            favorites.findIndex(
+                function(place) {
+
+                    return (
+                        String(place.id) ===
+                        String(placeId)
+                    );
+
+                }
+            );
+
+
+        if (index === -1) {
+
+            return;
+        }
+
+
+        const placeName =
+            favorites[index].name ||
+            "สถานที่นี้";
+
+
+        if (
+            !confirm(
+                "ต้องการลบ " +
+                placeName +
+                " ออกจากสถานที่โปรดหรือไม่?"
+            )
+        ) {
+
+            return;
+        }
+
+
+        favorites.splice(
+            index,
+            1
+        );
+
+
+        saveFavorites(
+            favorites
+        );
+
+
+        showToast(
+            "ลบออกจากสถานที่โปรดแล้ว ❤️"
+        );
+
+
+        renderFavorites();
+
+    }
+
+
+    /* =====================================
+       Start
+       ===================================== */
+
+    renderFavorites();
+
+</script>
+
+</body>
+
+</html>
