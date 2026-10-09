@@ -1,173 +1,265 @@
+
 <!DOCTYPE html>
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>WanderGo - เข้าสู่ระบบ</title>
 
-    <link
-        rel="stylesheet"
-        href="css/style.css"
-    >
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-
     <main class="login-page">
-
         <section class="login-card">
 
             <div class="brand">
                 <div class="brand-icon">✈️</div>
-
                 <h1>WanderGo</h1>
-
                 <p>
                     วางแผนการเดินทางของคุณ
                     ให้สนุกและง่ายขึ้น
                 </p>
             </div>
 
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="name">ชื่อ</label>
+                    <input
+                        type="text"
+                        id="name"
+                        placeholder="กรอกชื่อของคุณ"
+                        autocomplete="name"
+                    >
+                </div>
 
-          
-<form id="loginForm">
+                <div class="form-group">
+                    <label for="email">อีเมล</label>
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="example@email.com"
+                        autocomplete="email"
+                        required
+                    >
+                </div>
 
-    <div class="form-group">
-        <label for="name">ชื่อ</label>
-        <input
-            type="text"
-            id="name"
-            placeholder="กรอกชื่อของคุณ"
-        >
-    </div>
+                <div class="form-group">
+                    <label for="password">รหัสผ่าน</label>
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="กรอกรหัสผ่านอย่างน้อย 6 ตัว"
+                        autocomplete="current-password"
+                        minlength="6"
+                        required
+                    >
+                </div>
 
-    <div class="form-group">
-        <label for="email">อีเมล</label>
-        <input
-            type="email"
-            id="email"
-            placeholder="example@email.com"
-            autocomplete="email"
-            required
-        >
-    </div>
+                <button
+                    type="submit"
+                    class="btn btn-primary btn-full"
+                    id="loginButton"
+                >
+                    เข้าสู่ระบบ
+                </button>
 
-    <div class="form-group">
-        <label for="password">รหัสผ่าน</label>
-        <input
-            type="password"
-            id="password"
-            placeholder="กรอกรหัสผ่าน"
-            autocomplete="current-password"
-            minlength="6"
-            required
-        >
-    </div>
+                <button
+                    type="button"
+                    class="btn btn-full"
+                    id="signupButton"
+                >
+                    สมัครสมาชิก
+                </button>
 
-    <button
-        type="submit"
-        class="btn btn-primary btn-full"
-        id="loginButton"
-    >
-        เข้าสู่ระบบ
-    </button>
-
-    <button
-        type="button"
-        class="btn btn-full"
-        id="signupButton"
-    >
-        สมัครสมาชิก
-    </button>
-
-    <p id="authMessage" role="status"></p>
-
-</form>
+                <p id="authMessage" role="status" aria-live="polite"></p>
+            </form>
 
             <p class="login-note">
-                ตัวอย่างสำหรับโปรเจกต์ WanderGo
+                วางแผนการเดินทางไปกับ WanderGo
             </p>
 
         </section>
-
     </main>
 
-    <!-- JavaScript หลักของระบบ -->
+    <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/supabase.js"></script>
+    <script src="js/supabase.js"></script>
     <script src="js/script.js"></script>
 
-
     <script>
+        const loginForm = document.getElementById("loginForm");
+        const nameInput = document.getElementById("name");
+        const emailInput = document.getElementById("email");
+        const passwordInput = document.getElementById("password");
+        const loginButton = document.getElementById("loginButton");
+        const signupButton = document.getElementById("signupButton");
+        const authMessage = document.getElementById("authMessage");
 
-        document
-            .getElementById("loginForm")
-            .addEventListener(
-                "submit",
-                function(event) {
+        function showAuthMessage(message) {
+            authMessage.textContent = message;
+        }
 
-                    event.preventDefault();
+        function setLoading(isLoading) {
+            loginButton.disabled = isLoading;
+            signupButton.disabled = isLoading;
+        }
 
+        function getAuthErrorMessage(error) {
+            const message = (error?.message || "").toLowerCase();
 
-                    const name =
-                        document
-                            .getElementById("name")
-                            .value
-                            .trim();
+            if (message.includes("invalid login credentials")) {
+                return "อีเมลหรือรหัสผ่านไม่ถูกต้อง หรือบัญชีนี้ยังไม่มีอยู่";
+            }
 
+            if (message.includes("already registered")) {
+                return "อีเมลนี้สมัครสมาชิกแล้ว ลองเข้าสู่ระบบแทน";
+            }
 
-                    const email =
-                        document
-                            .getElementById("email")
-                            .value
-                            .trim();
+            if (
+                message.includes("password") &&
+                message.includes("at least")
+            ) {
+                return "รหัสผ่านสั้นเกินไป กรุณาตรวจสอบอีกครั้ง";
+            }
 
+            if (
+                message.includes("email not confirmed")
+            ) {
+                return "กรุณายืนยันอีเมลก่อนเข้าสู่ระบบ โดยตรวจสอบกล่องจดหมายของคุณ";
+            }
 
-                    if (
-                        name === "" ||
-                        email === ""
-                    ) {
+            if (
+                message.includes("rate limit") ||
+                message.includes("too many requests")
+            ) {
+                return "มีการลองหลายครั้งเกินไป กรุณารอสักครู่แล้วลองใหม่";
+            }
 
-                        alert(
-                            "กรุณากรอกข้อมูลให้ครบ"
-                        );
+            return "ดำเนินการไม่สำเร็จ กรุณาตรวจสอบข้อมูลแล้วลองใหม่";
+        }
 
-                        return;
+        function saveAuthenticatedUser(authUser, enteredName) {
+            const userName =
+                enteredName ||
+                authUser.user_metadata?.name ||
+                authUser.email?.split("@")[0] ||
+                "ผู้ใช้ WanderGo";
 
-                    }
+            // เก็บข้อมูลที่หน้าเดิมของ WanderGo ใช้งานร่วมกัน
+            // จะทำหลังจาก Supabase ยืนยันตัวตนสำเร็จเท่านั้น
+            saveCurrentUser({
+                id: authUser.id,
+                name: userName,
+                email: authUser.email,
+                bio: "",
+                createdAt: authUser.created_at
+            });
 
+            localStorage.setItem("wanderGoLoggedIn", "true");
+        }
 
-                    /*
-                     * ใช้ฟังก์ชัน loginUser()
-                     * จาก js/script.js
-                     *
-                     * เพื่อให้ทุกหน้าของ WanderGo
-                     * ใช้ข้อมูลผู้ใช้ชุดเดียวกัน
-                     */
+        // เข้าสู่ระบบด้วยบัญชี Supabase Auth
+        loginForm.addEventListener("submit", async function(event) {
+            event.preventDefault();
 
-                    loginUser(
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+
+            if (!email || !password) {
+                showAuthMessage("กรุณากรอกอีเมลและรหัสผ่าน");
+                return;
+            }
+
+            setLoading(true);
+            showAuthMessage("กำลังเข้าสู่ระบบ...");
+
+            try {
+                const { data, error } =
+                    await supabaseClient.auth.signInWithPassword({
                         email,
-                        name
+                        password
+                    });
+
+                if (error) throw error;
+
+                saveAuthenticatedUser(
+                    data.user,
+                    data.user.user_metadata?.name ||
+                    nameInput.value.trim()
+                );
+
+                window.location.href = "dashboard.html";
+
+            } catch (error) {
+                console.error("Login error:", error);
+                showAuthMessage(getAuthErrorMessage(error));
+            } finally {
+                setLoading(false);
+            }
+        });
+
+        // สมัครสมาชิกด้วย Supabase Auth
+        signupButton.addEventListener("click", async function() {
+            const name = nameInput.value.trim();
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+
+            if (!name) {
+                showAuthMessage("กรุณากรอกชื่อก่อนสมัครสมาชิก");
+                nameInput.focus();
+                return;
+            }
+
+            if (!email || !emailInput.checkValidity()) {
+                showAuthMessage("กรุณากรอกอีเมลให้ถูกต้อง");
+                emailInput.focus();
+                return;
+            }
+
+            if (password.length < 6) {
+                showAuthMessage("กรุณาตั้งรหัสผ่านอย่างน้อย 6 ตัว");
+                passwordInput.focus();
+                return;
+            }
+
+            setLoading(true);
+            showAuthMessage("กำลังสมัครสมาชิก...");
+
+            try {
+                const { data, error } =
+                    await supabaseClient.auth.signUp({
+                        email,
+                        password,
+                        options: {
+                            data: {
+                                name: name
+                            }
+                        }
+                    });
+
+                if (error) throw error;
+
+                // ถ้าเปิดยืนยันอีเมล Supabase อาจยังไม่สร้าง session
+                if (!data.session || !data.user) {
+                    showAuthMessage(
+                        "สมัครสมาชิกแล้ว! กรุณาตรวจสอบอีเมลเพื่อยืนยันบัญชี ก่อนเข้าสู่ระบบ"
                     );
-
-
-                    /*
-                     * เมื่อ Login สำเร็จ
-                     * ไปหน้า Dashboard
-                     */
-
-                    window.location.href =
-                        "dashboard.html";
-
+                    return;
                 }
-            );
 
+                saveAuthenticatedUser(data.user, name);
+
+                window.location.href = "dashboard.html";
+
+            } catch (error) {
+                console.error("Signup error:", error);
+                showAuthMessage(getAuthErrorMessage(error));
+            } finally {
+                setLoading(false);
+            }
+        });
     </script>
-
 </body>
 </html>
