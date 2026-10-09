@@ -681,3 +681,23 @@ function showToast(message) {
         2500
     );
 }
+async function testSupabaseConnection() {
+    try {
+        const { data, error } = await supabaseClient
+            .from("profiles")
+            .select("*")
+            .limit(1);
+
+        if (error) {
+            console.error("Supabase error:", error.message);
+            alert("เชื่อมต่อแล้ว แต่ต้องตรวจสอบตาราง profiles หรือสิทธิ์การเข้าถึง");
+            return;
+        }
+
+        console.log("เชื่อมต่อ Supabase สำเร็จ!");
+        alert("เชื่อมต่อ Supabase สำเร็จ!");
+    } catch (err) {
+        console.error(err);
+        alert("เชื่อมต่อไม่สำเร็จ กรุณาตรวจสอบการตั้งค่า");
+    }
+}
